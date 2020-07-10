@@ -1,20 +1,14 @@
-import React, { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import { withRouter } from 'react-router';
-import './navigation.css';
-import { Home, FaHome, FaAngleDown, FaAngleRight } from 'react-icons/fa';
+import React, { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { withRouter } from "react-router";
+import "./navigation.css";
+import { Home, FaHome, FaAngleDown, FaAngleRight } from "react-icons/fa";
 
 const Navigation = (props) => {
-  const [toggle, setToggle] = useState({ FaAngleDown })
-
-  const changeToggle = () => {
-    setToggle({ FaAngleRight })
-  }
-  
   const logOut = () => {
     localStorage.removeItem("userData");
     props.history.push("/login");
-  }
+  };
 
   return (
     <div className="sticky-top">
@@ -22,40 +16,63 @@ const Navigation = (props) => {
         <div className="py-3 px-5 dropdown link-content">
           <Link
             className="text-black-50 text-decoration-none"
+            to = "/home"
+          >
+            <FaHome /> Home
+          </Link>
+        </div>
+
+        <div className="py-3 px-5 dropdown link-content">
+          <Link
+            className="text-black-50 text-decoration-none"
+            to="/Court"
             data-toggle="dropdown"
           >
-            <FaHome /> Home <FaAngleDown />
+            Court <FaAngleDown/>
           </Link>
           <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a className="dropdown-item" href="/home">
-              Home
-              </a>
-            <a className="dropdown-item" onClick={logOut}>
-              Log Out
-              </a>
+            <Link className="dropdown-item" to="/create/court">
+              Create Court
+            </Link>
+            <Link className="dropdown-item" to="/courts">
+              View Courts
+            </Link>
+            <Link className="dropdown-item" to="/lawfirms">
+              Cost Process
+            </Link>
+            <Link className="dropdown-item" to="/assign/lawyer">
+              Assign Lawyer
+            </Link>
           </div>
         </div>
-        <div className='py-3 px-5 dropdown link-content'>
-          <NavLink className='text-black-50 text-decoration-none link-content' to='/File_Process' data-toggle="dropdown">Client Processes<FaAngleDown onClick={changeToggle} /> </NavLink>
+        <div className="py-3 px-5 dropdown link-content">
+          <NavLink
+            className="text-black-50 text-decoration-none link-content"
+            to="/File_Process"
+            data-toggle="dropdown"
+          >
+            Client <FaAngleDown/>
+          </NavLink>
           <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a className="dropdown-item" href="/process/fill"> File a Process</a>
-            <a className="dropdown-item" href="/process/view">View File Processes</a>
-            <a className="dropdown-item" href="/process/pay">Payment</a>
-
+            <Link className="dropdown-item" to="/process/fill">
+              {" "}
+              File Link Process
+            </Link>
+            <Link className="dropdown-item" to="/process/view">
+              View File Processes
+            </Link>
+            <Link className="dropdown-item" to="/process/pay">
+              Payment
+            </Link>
           </div>
         </div>
-
-        <div className='py-3 px-5 dropdown link-content'>
-          <Link className='text-black-50 text-decoration-none' to='/Court' data-toggle="dropdown" >Court Processes<FaAngleDown /> </Link>
-          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a className="dropdown-item" href="/create/court">Create Court</a>
-            <a className="dropdown-item" href="/courts">View Courts</a>
-            <a className="dropdown-item" href="/lawfirms">Cost Process</a>
-            <a className="dropdown-item" href="/assign/lawyer">Assign Lawyer</a>
-          </div>
+        <div className="py-3 px-5 dropdown link-content">
+          <Link className="text-black-50 text-decoration-none" onClick={logOut}>
+            Log out
+          </Link>
         </div>
       </div>
     </div>
   );
-}
+};
 export default withRouter(Navigation);
