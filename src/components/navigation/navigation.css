@@ -1,0 +1,17 @@
+body {
+  background-color: #eef1f6;
+  font-family: "Poppins", sans-serif;
+}
+.nav-wrapper {
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  /* height: 75px; */
+  transition: transform 330ms ease-out;
+  list-style: none;
+}
+.link-content a:hover {
+  color: #0084ff !important;
+  /* background-color: brown; */
+}

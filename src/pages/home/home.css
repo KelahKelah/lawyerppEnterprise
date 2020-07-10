@@ -1,0 +1,18 @@
+.header {
+    margin-top: -20px;
+    height: 305px;
+    text-align: center;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(97, 50, 50, 0.6)),
+    url("../../assets/court.jpg") !important;
+    background-size: center;
+    color: white;
+    font-family: 'Lato',
+    sans-serif;
+}
+.get-btn {
+    width: 300px;
+    height: 40px;
+    margin-top: 20px;
+    font-family: 'Lato',
+    sans-serif;
+}

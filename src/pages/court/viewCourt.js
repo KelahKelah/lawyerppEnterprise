@@ -1,0 +1,134 @@
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import './court.css'
+
+const ViewCourt = (props) => {
+    const courtUrl = "https://lawyerppenterprise.herokuapp.com/api/court/courts";
+
+    const [courts, setCourts] = useState([])
+
+
+    useEffect(() => {
+        axios.get(courtUrl).then(result => {
+            if (result.status === 200) {
+                setCourts(result.data.data)
+                console.log("courts", result.data.data)
+            }
+        }).catch(error => {
+            if (error.message === "Request failed with status code 401") {
+                props.setUnauthorized(true)
+            }
+        })
+    }, [])
+
+
+    return (
+        <div className="container mt-4">
+            <table className="table">
+                <thead className="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Judicial division</th>
+                        <th scope="col">Judge Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        courts.length > 0 && courts.map((court, i) => {
+                            return (
+                                <tr className="c-pointer court-tr" data-target={`#moreInfo${i}`} data-toggle="modal">
+                                    <th scope="row">{i + 1}</th>
+                                    <td>{court.name_Of_court}</td>
+                                    <td>{court.judicial_division}</td>
+                                    <td>{court.judges[0].judge_role}</td>
+                                </tr>
+                            )
+                        })
+                    }
+                </tbody>
+            </table>
+
+
+
+            <section>
+                {courts.length > 0 && courts.map((court, i) => {
+                    return (
+                        <div className="modal fade" tabIndex="-1" role="dialog" id={`moreInfo${i}`}>
+                            <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div className="modal-content">
+                                    <div className="modal-header border-0">
+                                        <h5 className="modal-title ">{court.name_Of_court}</h5>
+                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div className="modal-body">
+                                        <div className="row mx-0">
+                                            <div className="col-6 border-left">
+                                                <p><b>Court's designation: </b>{court.courts_designations[0].court_designation}</p>
+                                                {/* <p><b>Staff role: </b>{court.court_staff[0].staff_role}</p>
+                                                <p><b>Staff's administrative right: </b>{court.court_staff[0].staff_administrative_right}</p>
+                                                <p><b>Judge role: </b>{court.judges[0].judge_role}</p>
+                                                <p><b>Year of appointment: </b>{new Date(court.judges[0].year_of_appointment_to_court).getFullYear()}</p> */}
+
+
+                                                <h3 className="mt-3">Court Staffs</h3>
+                                                <ul>
+                                                    {
+                                                        court.court_staff.map((staff, i) => {
+                                                            return <li className="staff_list">
+                                                                <small><b>Name: </b>{`${staff.court_staff_id? staff.court_staff_id.first_name: ""} ${staff.court_staff_id ? staff.court_staff_id.last_name :"-"}`}</small>
+                                                                <br />
+                                                                <small><b>email: </b>{staff.court_staff_id ? staff.court_staff_id.email_address : "-"}</small><br />
+                                                                <small><b>phone number: </b>{staff.court_staff_id? staff.court_staff_id.phone_number : "-"}</small><br />
+                                                                <small><b>year of employment: </b>{staff.year_of_employment}</small><br />
+                                                                <small><b>staff role: </b>{staff.staff_role}</small><br />
+                                                                <small><b>staff court designation: </b>{staff.staff_court_designation}</small><br />
+                                                                <small><b>staff administrative right: </b>{staff.staff_administrative_right}</small>
+                                                            </li>
+                                                        })
+                                                    }
+                                                </ul>
+                                            </div>
+                                            <div className="col-6 border-left">
+                                                {/* <p><b>Staff's designation: </b>{court.court_staff[0].staff_court_designation}</p>
+                                                <p><b>Year of employment: </b>{court.court_staff[0].year_of_employment}</p>
+                                                <p><b>Judge's administrative right: </b>{court.judges[0].judge_administrative_right}</p>
+                                                <p><b>Judge court designation: </b>{court.judges[0].judge_court_designation}</p> */}
+                                                <p><b>Judicial division: </b>{court.judicial_division}</p>
+
+
+                                                <h3 className="mt-3">Court Judges</h3>
+                                                <ul>
+                                                    {
+                                                        court.judges.map((judge, i) => {
+
+                                                            return <li className="staff_list"><small><b>Name: </b>{`${judge.judge_id.first_name} ${court.judges[0].judge_id.last_name}`}</small><br />
+                                                                <small><b>email: </b>{judge.judge_id.email_address}</small><br />
+                                                                <small><b>phone number: </b>{judge.judge_id.phone_number}</small><br />
+                                                                <small><b>year of appointment: </b>{new Date(judge.year_of_appointment_to_court).getFullYear()}</small><br />
+                                                                <small><b>judge role: </b>{judge.judge_role}</small><br />
+                                                                <small><b>judge court designation: </b>{judge.judge_court_designation}</small><br />
+                                                                <small><b>judge administrative right: </b>{judge.judge_administrative_right}</small>
+                                                            </li>
+                                                        })
+                                                    }
+                                                </ul>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    )
+                })}
+            </section>
+
+        </div>
+    )
+}
+
+export default ViewCourt

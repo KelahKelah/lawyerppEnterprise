@@ -1,0 +1,16 @@
+.c-pointer {
+  cursor: pointer;
+}
+
+.court-tr:hover {
+  background-color: white;
+}
+
+.staff_list {
+  line-height: 20px;
+  text-transform: capitalize;
+}
+
+/* .staff_list small {
+  text-transform: lowercase;
+} */
