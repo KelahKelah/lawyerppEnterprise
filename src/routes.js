@@ -13,6 +13,7 @@ import LawyerCases from "./pages/court/allLawyerCases";
 import Lawfirms from "./pages/court/lawfirms";
 import CourtsForJudge from './pages/court/courtsForJudge';
 import JudgeCase from './pages/court/allJudgeCases';
+import Error from "./components/error/error";
 
 const MainRoute = ({ Component, path, exact, purpose, auth, ...rest }) => {
   var [unauthorized, setUnauthorized] = useState(false)
@@ -53,8 +54,7 @@ const Routes = () => {
           <MainRoute exact path="/process/pay" Component={Payment} />
           <MainRoute exact path="/assign/lawyer" Component={CourtsForJudge} />
           <MainRoute exact path="/assign/lawyer/:id" Component={JudgeCase} />
-
-
+          <MainRoute exact path="*" Component={Error} />
         </Switch>
       </BrowserRouter>
     </>
