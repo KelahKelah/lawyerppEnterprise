@@ -2,17 +2,20 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./court.css";
 import Error from "../../components/error/error";
+import Loader from "../../components/pageLoader/loader";
 
 const JudgeCases = (props) => {
   const lawfirms = `https://lawyerppenterprise.herokuapp.com/api/fileprocess/All_court_filed_process?courtId=${props.match.params.id}`;
   const [cases, setCases] = useState([]);
   const [lawyers, setLawyers] = useState([]);
   const [error, seterror] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     axios
       .get(lawfirms)
       .then((result) => {
+        setIsLoading(false);
         if (result.status === 200) {
           setCases(result.data.data);
           console.log("cases", result.data.data);
@@ -51,6 +54,8 @@ const JudgeCases = (props) => {
       advice="You are not designated to this court"
       link="/assign/lawyer"
     />
+  ) : isLoading ? (
+    <Loader />
   ) : (
     <div className="container mt-4">
       <table className="table">

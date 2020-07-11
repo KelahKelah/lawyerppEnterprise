@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./court.css";
 import Error from "../../components/error/error";
+import Loader from "../../components/pageLoader/loader";
 
 const LawyerCases = (props) => {
   const lawfirms = `/fileprocess/All_court_filed_process?courtId=${props.match.params.id}`;
@@ -12,6 +13,7 @@ const LawyerCases = (props) => {
   });
   const [processId, setprocessId] = useState();
   const [error, seterror] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const postUrl = `/fileprocess/cost_filed_process?processId=${processId}`;
 
@@ -19,6 +21,7 @@ const LawyerCases = (props) => {
     axios
       .get(lawfirms)
       .then((result) => {
+        setIsLoading(false);
         if (result.status === 200) {
           setCases(result.data.data);
           console.log("cases", result.data.data);
@@ -47,11 +50,11 @@ const LawyerCases = (props) => {
       })
       .catch((error) => {
         if (error.message === "Request failed with status code 401") {
-          seterror("401")
+          seterror("401");
         }
         if (error.message === "Sorry you cannot view this ") {
           alert("Sorry, you are not supposed to handle this case");
-          seterror("404")
+          seterror("404");
         }
       });
   };
@@ -62,9 +65,15 @@ const LawyerCases = (props) => {
       advice="You are not designated to this court"
       link="/lawfirms"
     />
-  ) : error == "401" ? <Error message="401"
+  ) : error == "401" ? (
+    <Error
+      message="401"
       advice="You are not approved to perform this action"
-      link="/lawfirms" />:(
+      link="/lawfirms"
+    />
+  ) : isLoading ? (
+    <Loader />
+  ) : (
     <div className="container mt-4">
       <table className="table">
         <thead className="thead-dark">

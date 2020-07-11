@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Loader from "../../components/pageLoader/loader";
 
 const ViewFileProcesses = (props) => {
   const [allFileProcesses, setAllFileProcesses] = useState([]);
   const viewFileProcessesUrl = "/fileprocess/filer_filed_process";
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(viewFileProcessesUrl)
+    axios
+      .get(viewFileProcessesUrl)
       .then((res) => {
+        setIsLoading(false);
         console.log("allFileProcess", res.data.data);
         console.log("we", res);
         setAllFileProcesses(res.data.data);
@@ -20,7 +24,9 @@ const ViewFileProcesses = (props) => {
       });
   }, []);
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div className="container mt-4">
       <table className="table">
         <thead className="thead-dark">
@@ -209,8 +215,9 @@ const ViewFileProcesses = (props) => {
                               <br />
                               <small>
                                 <b>Judicial Division: </b>
-                                {caseDetail.courtId && caseDetail.courtId
-                                  .judicial_division || "N/A"}
+                                {(caseDetail.courtId &&
+                                  caseDetail.courtId.judicial_division) ||
+                                  "N/A"}
                               </small>
                               <br />
                               <small>
