@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { withRouter } from "react-router";
 import "./navigation.css";
-import { Home, FaHome, FaAngleDown, FaAngleRight } from "react-icons/fa";
+import { FaHome, FaAngleDown } from "react-icons/fa";
 
 const Navigation = (props) => {
   const logOut = () => {

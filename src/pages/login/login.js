@@ -72,9 +72,9 @@ const Login = (props) => {
                     >
                       Sign in
                     </button>
-                    {isLoading == "yes" ? (
+                    {isLoading === "yes" ? (
                       <Loader />
-                    ) : isLoading == "error" ? (
+                    ) : isLoading === "error" ? (
                       <small>Something went wrong, refresh</small>
                     ) : null}
                   </div>

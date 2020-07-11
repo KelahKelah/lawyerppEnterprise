@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Error from "../../components/error/error";
 import "./payment.css";
 
 const Payment = (props) => {
   const [costedProcesses, setcostedProcesses] = useState();
   const [data, setdata] = useState();
-  const [isLoading, setisLoading] = useState("");
+  const [error, seterror] = useState("")
 
   useEffect(() => {
-    setisLoading("true");
     axios
       .get("/fileprocess/filer_costed_process")
       .then((res) => {
         setcostedProcesses(res.data.data);
         console.log(res.data.data);
-        if (data.length > 0) {
-          setisLoading("false");
-        }
+        alert(res.message);
+        props.history.push("/home");
       })
       .catch((err) => {
         console.log(err);
         if (err.message === "Request failed with status code 401") {
-          props.setUnauthorized(true);
+          seterror("401");
         }
       });
   }, []);
@@ -42,7 +41,9 @@ const Payment = (props) => {
         console.error(error);
       });
   };
-  return (
+  return error === "401" ? <Error 
+      advice="You are not supposed to make this selection, log in as an authorised personnel"
+      link="/login" button="to Home"/>: (
     <div className="container mt-4">
       <h3 className="text-center">
         This is a list of approved processes available for you to pay

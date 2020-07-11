@@ -7,6 +7,7 @@ import * as serviceWorker from './serviceWorker';
 import axios from 'axios';
 
 let accessToken  = localStorage.getItem("userData")
+console.log(accessToken);
 if(accessToken){
   accessToken = JSON.parse(accessToken).token;  
   axios.defaults.headers["x-access-token"] = accessToken;
