@@ -25,7 +25,29 @@ const Error = (props) => {
         </div>
       </div>
     );
-  } else {
+  }
+  if (props.message == "400" ) {
+    return (
+      <div className="wrapper">
+        <div className="container-fluid p-0">
+          <div className="row no-gutters">
+            <div className="col-sm-12 text-center">
+              <div className="iq-error">
+                <h1>Sorry</h1>
+                <h4 className="mb-0">{props.advice}</h4>
+                <p>The requested page dose not exist.</p>
+                <Link className="btn btn-primary mt-3" to={`${props.link}`}>
+                  Go back {props.button}
+                </Link>
+                <img src={error} className="img-fluid iq-error-img" alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  else {
     return (
       <div className="wrapper">
         <div className="container-fluid p-0">

@@ -5,9 +5,13 @@ import Error from "../../components/error/error";
 import Loader from "../../components/pageLoader/loader";
 
 const JudgeCases = (props) => {
-  const lawfirms = `https://lawyerppenterprise.herokuapp.com/api/fileprocess/All_court_filed_process?courtId=${props.match.params.id}`;
+  const lawfirms = `/fileprocess/All_court_filed_process?courtId=${props.match.params.id}`;
   const [cases, setCases] = useState([]);
   const [lawyers, setLawyers] = useState([]);
+  const [data, setdata] = useState({
+    lawyerId: "",
+    fileProcessId: "",
+  });
   const [error, seterror] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -36,9 +40,10 @@ const JudgeCases = (props) => {
 
   const fetchLawyers = () => {
     axios
-      .get("https://lawyerppenterprise.herokuapp.com/api/court/lawyers")
+      .get("/court/lawyers")
       .then((res) => {
         setLawyers(res.data.data);
+        console.log("lawyers", res.data.data);
       })
       .catch((error) => {
         console.error(error);
@@ -48,10 +53,33 @@ const JudgeCases = (props) => {
       });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(data);
+    axios
+      .post(`/court/assign_matter?courtId=${props.match.params.id}`, data)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error.message);
+        if (error.message === "Request failed with status code 400") {
+          seterror("400");
+          console.log("i got here");
+        }
+      });
+  };
+
   return error === "404" ? (
     <Error
       message="404"
       advice="You are not designated to this court"
+      link="/assign/lawyer"
+    />
+  ) : error === "400" ? (
+    <Error
+      message="400"
+      advice="This case has already been assigned to a judge"
       link="/assign/lawyer"
     />
   ) : isLoading ? (
@@ -77,6 +105,9 @@ const JudgeCases = (props) => {
                   className="c-pointer court-tr"
                   data-target={`#moreInfo${i}`}
                   data-toggle="modal"
+                  onClick={(e) =>
+                    setdata({ ...data, fileProcessId: singleCase._id })
+                  }
                 >
                   <th scope="row">{i + 1}</th>
                   <td>
@@ -156,19 +187,31 @@ const JudgeCases = (props) => {
                         </div>
                         <div className="col-md-6">
                           <div className="d-flex justify-content-end">
-                            <select className="form-control mr-2">
-                              <option>pick lawyer to assign case</option>
-                              {lawyers &&
-                                lawyers.length > 0 &&
-                                lawyers.map((lawyer, i) => (
-                                  <option key={i} value={lawyer._id}>
-                                    {lawyer.first_name + " " + lawyer.last_name}
-                                  </option>
-                                ))}
-                            </select>
-                            <button type="button" className="btn btn-primary">
-                              Assign
-                            </button>
+                            <form
+                              className="form-inline"
+                              onSubmit={handleSubmit}
+                            >
+                              <select
+                                className="form-control mr-2"
+                                onChange={(e) =>
+                                  setdata({ ...data, lawyerId: e.target.value })
+                                }
+                              >
+                                <option>pick lawyer to assign case</option>
+                                {lawyers &&
+                                  lawyers.length > 0 &&
+                                  lawyers.map((lawyer, i) => (
+                                    <option key={i} value={lawyer._id}>
+                                      {lawyer.first_name +
+                                        " " +
+                                        lawyer.last_name}
+                                    </option>
+                                  ))}
+                              </select>
+                              <button type="submit" className="btn btn-primary">
+                                Assign
+                              </button>
+                            </form>
                           </div>
                         </div>
                       </div>
