@@ -19,6 +19,8 @@ const ViewCourt = (props) => {
   const createPostUrl =
     "https://lawyerppenterprise.herokuapp.com/api/court/create";
 
+  const postLawyerUrl = "https://lawyerppenterprise.herokuapp.com/api/court/add_lawyer?courtId";
+  
   const handleInputs = (e) => {
     console.log("target check", e.target.name)
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -28,18 +30,19 @@ const ViewCourt = (props) => {
   
 
   // Post request to create form
-  const handleSubmits = (event) => {
+  const handleSubmitLawyer = (event) => {
     event.preventDefault();
     console.log(inputs);
 
     axios
-      .post(createPostUrl, inputs)
+      .post(postLawyerUrl, inputs)
       .then((res) => {
-        console.log(res);
-        if (res.status == 200) {
-          props.history.push("/courts");
-        }
-      })
+        console.log('response to post lawyerData', res);
+        // if (res.status == 200) {
+        //   props.history.push("/courts");
+        // }
+      }
+      )
       .catch((err) => {
         console.log(err);
       });
@@ -325,7 +328,7 @@ const ViewCourt = (props) => {
                     </div>
                     <div class="modal-body">
 
-                      <form onSubmit="">
+                      <form onSubmit={handleSubmitLawyer}>
 
                           <div className="form-group">
                               <label htmlFor="">Judge</label>

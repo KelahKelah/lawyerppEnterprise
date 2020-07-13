@@ -28,7 +28,9 @@ const Login = (props) => {
       .then((response) => {
         console.log(response);
         localStorage.setItem("userData", JSON.stringify(response.data.data));
-        console.log(localStorage);
+        var token = localStorage.getItem("userData");
+        token = JSON.parse(token).token 
+        console.log(token);
         props.history.push("/home");
       })
       .catch((error) => {
