@@ -16,7 +16,7 @@ const Error = (props) => {
                 <h4 className="mb-0">{props.advice}</h4>
                 <p>The requested page dose not exist.</p>
                 <Link className="btn btn-primary mt-3" to={`${props.link}`}>
-                  <i className="ri-home-4-line"></i>Go back{props.button}
+                  Go back {props.button}
                 </Link>
                 <img src={error} className="img-fluid iq-error-img" alt="" />
               </div>
@@ -35,7 +35,8 @@ const Error = (props) => {
                 <h1>404</h1>
                 <h4 className="mb-0">Oops! This Page is Not Found.</h4>
                 <p>The requested page dose not exist.</p>
-                <Link className="btn btn-primary mt-3" to="/home"><FaHome /> Go Back to Home
+                <Link className="btn btn-primary mt-3" to="/home">
+                  <FaHome /> Go Back to Home
                 </Link>
                 <img src={error} className="img-fluid iq-error-img" alt="" />
               </div>

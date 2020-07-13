@@ -7,6 +7,7 @@ import { FaHome, FaAngleDown } from "react-icons/fa";
 const Navigation = (props) => {
   const logOut = () => {
     localStorage.removeItem("userData");
+    console.log(localStorage);
     props.history.push("/login");
   };
 

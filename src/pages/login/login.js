@@ -28,6 +28,7 @@ const Login = (props) => {
       .then((response) => {
         console.log(response);
         localStorage.setItem("userData", JSON.stringify(response.data.data));
+        console.log(localStorage);
         props.history.push("/home");
       })
       .catch((error) => {
