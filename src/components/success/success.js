@@ -71,8 +71,7 @@ const Success = (props) => {
           <h1>Success</h1>
           <p>
             {props.message};
-            Click <Link to="/home">here</Link> to go back
-            home!
+            Click <Link to="/home">here</Link> to go back home!
           </p>
         </div>
       </div>

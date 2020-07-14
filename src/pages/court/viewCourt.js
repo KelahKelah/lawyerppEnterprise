@@ -38,6 +38,7 @@ const ViewCourt = (props) => {
     axios
       .post(postLawyerUrl, inputs)
       .then((res) => {
+        setSucess(true)
         console.log('response to post lawyerData', res);
         // if (res.status == 200) {
         //   props.history.push("/courts");
@@ -100,7 +101,8 @@ const ViewCourt = (props) => {
   }, []);
 
  
-  return isLoading ? (
+  return success ? <Success type="addedLawyer"
+  message="You have successfully added a lawyer"/>: isLoading ? (
     <Loader />
   ) : (
     <div className="container mt-4">
@@ -131,13 +133,6 @@ const ViewCourt = (props) => {
                   <td>{court.judges[0].judge_role}</td>
                   <td>
                     <button  className="c-pointer court-tr" data-target={`#moreInfo${i}`} data-toggle="modal"className="btn btn-primary text-white"  target="_blank">View Court</button>
-                    <Success 
-                        type="lawyerAdded"
-                        message="You have sucessfully added a lawyer"
-                        link="/courts"
-                        // direction=""
-                    
-                    />
                   </td>
                   <td>
                     <button  className="btn btn-primary text-white" type="button" data-toggle="modal" data-target="#lawyer" href="" onClick={()=>{setCourtId(court._id)}} target="_blank">Add Lawyer</button>
