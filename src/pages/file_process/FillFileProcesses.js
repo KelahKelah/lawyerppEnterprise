@@ -44,8 +44,6 @@ const FillFileProcess = (props) => {
     fetchLawFirms();
   }, []);
 
-  let userDetails = JSON.parse(localStorage.getItem("userData"));
-
   const toggleSetFiler = (e) => {
     setfiler(e.target.value);
     handleChange(e);
@@ -128,7 +126,7 @@ const FillFileProcess = (props) => {
       .post(url, files)
       .then((response) => {
         console.log(response);
-        if (response.status == 200) {
+        if (response.status === 200) {
           setloadState("notLoading");
           props.history.push("/process/view");
         }
@@ -181,7 +179,7 @@ const FillFileProcess = (props) => {
                       <option value="lawyer">Lawyer</option>
                     </select>
                   </div>
-                  {filer == "client" ? (
+                  {filer === "client" ? (
                     <div className="form-group">
                       <label for="exampleInputEmail1">Client</label>
                       <select
@@ -200,7 +198,7 @@ const FillFileProcess = (props) => {
                           ))}
                       </select>
                     </div>
-                  ) : filer == "lawyer" ? (
+                  ) : filer === "lawyer" ? (
                     <div className="form-row">
                       <div className="form-group col-md-6">
                         <label for="exampleInputEmail1">Lawyer Names</label>
@@ -536,9 +534,9 @@ const FillFileProcess = (props) => {
                       >
                         Create a Process
                       </button>
-                      {loadStata == "isLoading" ? <Loader /> : null}
+                      {loadStata === "isLoading" ? <Loader /> : null}
                     </div>
-                    {loadStata == "loadFailed" ? (
+                    {loadStata === "loadFailed" ? (
                       <small className="d-flex justify-content-center">
                         Something went wrong, refresh and retry
                       </small>

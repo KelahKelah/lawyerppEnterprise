@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./court.css";
+import Loader from "../../components/pageLoader/loader";
 
 const LawFirms = (props) => {
   const courtUrl = "/court/courts";
   const [courts, setCourts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     axios
       .get(courtUrl)
       .then((result) => {
+        setIsLoading(false);
         if (result.status === 200) {
           setCourts(result.data.data);
           console.log("courts", result.data.data);
@@ -22,11 +25,13 @@ const LawFirms = (props) => {
       });
   }, []);
 
-  const handleClick = (court)=>{
-      props.history.push(`/lawfirms/${court._id}`)
-  }
+  const handleClick = (court) => {
+    props.history.push(`/lawfirms/${court._id}`);
+  };
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div className="container mt-4">
       <table className="table">
         <thead className="thead-dark">
@@ -45,7 +50,9 @@ const LawFirms = (props) => {
                   className="c-pointer court-tr"
                   data-target={`#moreInfo${i}`}
                   data-toggle="modal"
-                  onClick={()=>{handleClick(court)}}
+                  onClick={() => {
+                    handleClick(court);
+                  }}
                 >
                   <th scope="row">{i + 1}</th>
                   <td>{court.name_Of_court}</td>

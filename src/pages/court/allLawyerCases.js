@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./court.css";
+import Error from "../../components/error/error";
+import Loader from "../../components/pageLoader/loader";
 
 const LawyerCases = (props) => {
   const lawfirms = `/fileprocess/All_court_filed_process?courtId=${props.match.params.id}`;
@@ -10,20 +12,25 @@ const LawyerCases = (props) => {
     processFee: "",
   });
   const [processId, setprocessId] = useState();
-    const postUrl = `/fileprocess/cost_filed_process?processId=${processId}`;
+  const [error, seterror] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  const postUrl = `/fileprocess/cost_filed_process?processId=${processId}`;
 
   useEffect(() => {
     axios
       .get(lawfirms)
       .then((result) => {
+        setIsLoading(false);
         if (result.status === 200) {
           setCases(result.data.data);
           console.log("cases", result.data.data);
         }
       })
       .catch((error) => {
-        if (error.message === "Request failed with status code 401") {
-          props.setUnauthorized(true);
+        console.log(error);
+        if (error.message === "Request failed with status code 404") {
+          seterror("404");
         }
       });
   }, []);
@@ -43,15 +50,30 @@ const LawyerCases = (props) => {
       })
       .catch((error) => {
         if (error.message === "Request failed with status code 401") {
-          props.setUnauthorized(true);
+          seterror("401");
         }
         if (error.message === "Sorry you cannot view this ") {
-          alert("Sorry, you are not supposed to handle this case")
+          alert("Sorry, you are not supposed to handle this case");
+          seterror("404");
         }
       });
   };
 
-  return (
+  return error == "404" ? (
+    <Error
+      message="404"
+      advice="You are not designated to this court"
+      link="/lawfirms"
+    />
+  ) : error == "401" ? (
+    <Error
+      message="401"
+      advice="You are not approved to perform this action"
+      link="/lawfirms"
+    />
+  ) : isLoading ? (
+    <Loader />
+  ) : (
     <div className="container mt-4">
       <table className="table">
         <thead className="thead-dark">
@@ -72,13 +94,15 @@ const LawyerCases = (props) => {
                   className="c-pointer court-tr"
                   data-target={`#moreInfo${i}`}
                   data-toggle="modal"
-                  onClick={()=>setData(singleCase)}
+                  onClick={() => setData(singleCase)}
                 >
                   <th scope="row">{i + 1}</th>
                   <td>
-                    {singleCase.client_details.filer_name && singleCase.client_details.filer_name.first_name +
-                      " " +
-                      singleCase.client_details.filer_name && singleCase.client_details.filer_name.last_name}
+                    {singleCase.client_details.filer_name &&
+                      singleCase.client_details.filer_name.first_name +
+                        " " +
+                        singleCase.client_details.filer_name &&
+                      singleCase.client_details.filer_name.last_name}
                   </td>
                   <td>{singleCase.mode_of_commencement}</td>
                   <td>
@@ -90,20 +114,28 @@ const LawyerCases = (props) => {
                     {singleCase.opposing_lawyers[0].opposing_lawyer_id &&
                       singleCase.opposing_lawyers[0].opposing_lawyer_id
                         .first_name +
-                      " " +
-                      singleCase.opposing_lawyers[0].opposing_lawyer_id
-                        .last_name}
+                        " " +
+                        singleCase.opposing_lawyers[0].opposing_lawyer_id
+                          .last_name}
                   </td>
                   <td>
-
-                    {singleCase.processImageUrl !== "" ? <a className="btn btn-primary text-white" href={`${singleCase.processImageUrl}`} target="_blank">file</a> : "no file"}
+                    {singleCase.processImageUrl !== "" ? (
+                      <a
+                        className="btn btn-primary text-white"
+                        href={`${singleCase.processImageUrl}`}
+                        target="_blank"
+                      >
+                        file
+                      </a>
+                    ) : (
+                      "no file"
+                    )}
                   </td>
                 </tr>
               );
             })}
         </tbody>
       </table>
-
       <section>
         {cases.length > 0 &&
           cases.map((caseDetail, i) => {

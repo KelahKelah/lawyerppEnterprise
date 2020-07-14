@@ -24,7 +24,7 @@ const Form = (props) => {
   // Post request to create form
   const handleSubmits = (event) => {
     event.preventDefault();
-    console.log(inputs);
+    console.log('inputsssssssssss',inputs);
 
     axios
       .post(createPostUrl, inputs)

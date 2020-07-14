@@ -1,30 +1,39 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Error from "../../components/error/error";
 import "./payment.css";
+import Loader from "../../components/pageLoader/loader";
 
 const Payment = (props) => {
-  const [costedProcesses, setcostedProcesses] = useState();
-  const [data, setdata] = useState();
-  const [isLoading, setisLoading] = useState("");
+  const [costedProcesses, setcostedProcesses] = useState([]);
+  const [data, setdata] = useState([]);
+  const [error, seterror] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setisLoading("true");
+    let accessToken = localStorage.getItem("userData");
+    accessToken = JSON.parse(accessToken).token;
+    console.log(accessToken);
     axios
       .get("/fileprocess/filer_costed_process")
       .then((res) => {
+        setIsLoading(false);
+        var rawData = res.data.data;
+        var formattedData = formatData(rawData);
         setcostedProcesses(res.data.data);
         console.log(res.data.data);
-        if (data.length > 0) {
-          setisLoading("false");
-        }
       })
       .catch((err) => {
         console.log(err);
         if (err.message === "Request failed with status code 401") {
-          props.setUnauthorized(true);
+          seterror("401");
         }
       });
   }, []);
+
+  const formatData = (rawData) => {
+    console.log(rawData);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,7 +51,16 @@ const Payment = (props) => {
         console.error(error);
       });
   };
-  return (
+  return error === "401" ? (
+    <Error
+      message="401"
+      advice="You are not supposed to make this selection, log in as an authorised personnel"
+      link="/login"
+      button="to Home"
+    />
+  ) : isLoading ? (
+    <Loader />
+  ) : (
     <div className="container mt-4">
       <h3 className="text-center">
         This is a list of approved processes available for you to pay

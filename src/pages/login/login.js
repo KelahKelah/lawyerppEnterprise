@@ -28,6 +28,10 @@ const Login = (props) => {
       .then((response) => {
         console.log(response);
         localStorage.setItem("userData", JSON.stringify(response.data.data));
+        console.log("qwuuuuuuuujqnwww", response.data.data)
+        var token = localStorage.getItem("userData");
+        token = JSON.parse(token).token 
+        axios.defaults.headers["x-access-token"] = response.data.data.token;
         props.history.push("/home");
       })
       .catch((error) => {
@@ -72,9 +76,9 @@ const Login = (props) => {
                     >
                       Sign in
                     </button>
-                    {isLoading == "yes" ? (
+                    {isLoading === "yes" ? (
                       <Loader />
-                    ) : isLoading == "error" ? (
+                    ) : isLoading === "error" ? (
                       <small>Something went wrong, refresh</small>
                     ) : null}
                   </div>
