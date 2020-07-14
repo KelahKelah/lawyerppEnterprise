@@ -3,6 +3,7 @@ import axios from "axios";
 import "./court.css";
 import Error from "../../components/error/error";
 import Loader from "../../components/pageLoader/loader";
+import Success from "../../components/success/success";
 
 const JudgeCases = (props) => {
   const lawfirms = `/fileprocess/All_court_filed_process?courtId=${props.match.params.id}`;
@@ -14,6 +15,7 @@ const JudgeCases = (props) => {
   });
   const [error, seterror] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     axios
@@ -59,6 +61,7 @@ const JudgeCases = (props) => {
     axios
       .post(`/court/assign_matter?courtId=${props.match.params.id}`, data)
       .then((result) => {
+        setSuccess(true);
         console.log(result);
       })
       .catch((error) => {
@@ -70,7 +73,14 @@ const JudgeCases = (props) => {
       });
   };
 
-  return error === "404" ? (
+  return success ? (
+    <Success
+      type="assignedLawyer"
+      message="You have successfully assigned a lawyer to this process"
+      link="/assign/lawyer"
+      direction="processes"
+    />
+  ) : error === "404" ? (
     <Error
       message="404"
       advice="You are not designated to this court"

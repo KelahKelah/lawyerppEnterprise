@@ -20,7 +20,7 @@ const Success = (props) => {
           <h1>Success</h1>
           <p>
             {props.message};
-            <br /> Click <Link to={`${props.link}`}>here</Link> to view
+            <br /> Click <Link to={`${props.link}`}>here</Link> to view{" "}
             {props.direction} or click <Link to="/home">here</Link> to go back
             home!
           </p>
@@ -37,14 +37,31 @@ const Success = (props) => {
           <h1>Success</h1>
           <p>
             {props.message};
-            <br /> Click <Link to={`${props.link}`}>here</Link> to view
+            <br /> Click <Link to={`${props.link}`}>here</Link> to view{" "}
             {props.direction} or click <Link to="/home">here</Link> to go back
             home!
           </p>
         </div>
       </div>
     );
-    if (props.type === "paid")
+  if (props.type === "costed")
+    return (
+      <div className="body">
+        <div className="card">
+          <div style={mystyle}>
+            <i className="checkmark">✓</i>
+          </div>
+          <h1>Success</h1>
+          <p>
+            {props.message};
+            <br /> Click <Link to={`${props.link}`}>here</Link> to view{" "}
+            {props.direction} or click <Link to="/home">here</Link> to go back
+            home!
+          </p>
+        </div>
+      </div>
+    );
+    if (props.type === "assignedLawyer")
       return (
         <div className="body">
           <div className="card">
@@ -54,7 +71,8 @@ const Success = (props) => {
             <h1>Success</h1>
             <p>
               {props.message};
-              <br /> Click <Link to={`${props.link}`}>here</Link> to view {props.direction} or click <Link to="/home">here</Link> to go back
+              <br /> Click <Link to={`${props.link}`}>here</Link> to view{" "}
+              {props.direction} or click <Link to="/home">here</Link> to go back
               home!
             </p>
           </div>
