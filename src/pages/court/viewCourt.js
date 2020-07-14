@@ -8,6 +8,7 @@ const ViewCourt = (props) => {
   const [courts, setCourts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [inputs, setInputs] = useState({});
+  const [courtId, setCourtId] = useState("");
 
   const [clientData, setClientData] = useState();
   const [lawyerData, setLawyerData] = useState();
@@ -19,7 +20,7 @@ const ViewCourt = (props) => {
   const createPostUrl =
     "https://lawyerppenterprise.herokuapp.com/api/court/create";
 
-  const postLawyerUrl = "https://lawyerppenterprise.herokuapp.com/api/court/add_lawyer?courtId";
+  const postLawyerUrl = `https://lawyerppenterprise.herokuapp.com/api/court/add_lawyer?courtId=${courtId}`;
   
   const handleInputs = (e) => {
     console.log("target check", e.target.name)
@@ -32,7 +33,6 @@ const ViewCourt = (props) => {
   const handleSubmitLawyer = (event) => {
     event.preventDefault();
     console.log(inputs);
-
     axios
       .post(postLawyerUrl, inputs)
       .then((res) => {
@@ -85,10 +85,7 @@ const ViewCourt = (props) => {
   //   })
   // }
 
-  // add client function
-  const addClient = () => {
-    console.log('added client')
-  }
+ 
  
   useEffect(() => {
     axios
@@ -140,13 +137,13 @@ const ViewCourt = (props) => {
                   <td>{court.judicial_division}</td>
                   <td>{court.judges[0].judge_role}</td>
                   <td>
-                    <button  className="c-pointer court-tr" data-target={`#moreInfo${i}`} data-toggle="modal"className="btn btn-primary text-white" href="" onclick={addClient} target="_blank">View Court</button>
+                    <button  className="c-pointer court-tr" data-target={`#moreInfo${i}`} data-toggle="modal"className="btn btn-primary text-white"  target="_blank">View Court</button>
                   </td>
                   <td>
-                    <button  className="btn btn-primary text-white" type="button" data-toggle="modal" data-target="#lawyer" href="" onclick={addClient} target="_blank">Add Lawyer</button>
+                    <button  className="btn btn-primary text-white" type="button" data-toggle="modal" data-target="#lawyer" href="" onClick={()=>{setCourtId(court._id)}} target="_blank">Add Lawyer</button>
                   </td>
                   <td>
-                    <button className="btn btn-primary text-white" type="button" data-toggle="modal" data-target="#client"href="" onclick={addClient} target="_blank">Add Client</button>
+                    <button className="btn btn-primary text-white" type="button" data-toggle="modal" data-target="#client"href="" target="_blank">Add Client</button>
                   </td>     
            <section>
         {courts.length > 0 &&
@@ -396,7 +393,7 @@ const ViewCourt = (props) => {
                                   <select
                                     class="form-control"
                                     name="judge_administrative_right"
-                                    // onChange={handleInputs}
+                                    onChange={handleInputs}
                                   >
                                     <option></option>
                                     <option>Yes</option>
@@ -411,7 +408,7 @@ const ViewCourt = (props) => {
                                     type="text"
                                     className="form-control"
                                     name="judge_court_designation"
-                                    // onChange={handleInputs}
+                                    onChange={handleInputs}
                                   />
                                 </div>
 
