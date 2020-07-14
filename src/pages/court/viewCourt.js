@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./court.css";
 import Loader from "../../components/pageLoader/loader";
+import Success from "../../components/success/success";
 
 const ViewCourt = (props) => {
   const courtUrl = "https://lawyerppenterprise.herokuapp.com/api/court/courts";
@@ -12,6 +13,7 @@ const ViewCourt = (props) => {
 
   const [clientData, setClientData] = useState();
   const [lawyerData, setLawyerData] = useState();
+  const [success, setSucess] = useState(false);
 
   const clientUrl =
     "https://lawyerppenterprise.herokuapp.com/api/court/clients";
@@ -78,15 +80,6 @@ const ViewCourt = (props) => {
   }, []);
 
 
-  // // handles inputs form add client form
-  // const handleInputs = (e) => {
-  //   setInputs({
-  //     ...inputs, [e.target.name] : e.target.value
-  //   })
-  // }
-
- 
- 
   useEffect(() => {
     axios
       .get(courtUrl)
@@ -138,6 +131,13 @@ const ViewCourt = (props) => {
                   <td>{court.judges[0].judge_role}</td>
                   <td>
                     <button  className="c-pointer court-tr" data-target={`#moreInfo${i}`} data-toggle="modal"className="btn btn-primary text-white"  target="_blank">View Court</button>
+                    <Success 
+                        type="lawyerAdded"
+                        message="You have sucessfully added a lawyer"
+                        link="/courts"
+                        // direction=""
+                    
+                    />
                   </td>
                   <td>
                     <button  className="btn btn-primary text-white" type="button" data-toggle="modal" data-target="#lawyer" href="" onClick={()=>{setCourtId(court._id)}} target="_blank">Add Lawyer</button>
