@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./file_process.css";
 import Loader from "../../components/loader/loader";
+import Success from "../../components/success/success";
 
 const FillFileProcess = (props) => {
   const [filer, setfiler] = useState("");
@@ -31,11 +32,12 @@ const FillFileProcess = (props) => {
     opposing_office_address: "",
     certificate: "",
   });
-  const [courts, setcourts] = useState();
-  const [lawyers, setlawyers] = useState();
-  const [lawFirms, setlawFirms] = useState();
+  const [courts, setcourts] = useState([]);
+  const [lawyers, setlawyers] = useState([]);
+  const [lawFirms, setlawFirms] = useState([]);
   const [users, setUsers] = useState();
   const [loadStata, setloadState] = useState("notLoading");
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     fetchLawyers();
@@ -115,10 +117,10 @@ const FillFileProcess = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const files = new FormData();
-    Object.keys(data).map(key => {
+    Object.keys(data).map((key) => {
       files.append(key, data[key]);
-    })
-  
+    });
+
     console.log(files);
     let url = "/fileprocess/create";
     setloadState("isLoading");
@@ -127,8 +129,9 @@ const FillFileProcess = (props) => {
       .then((response) => {
         console.log(response);
         if (response.status === 200) {
+          setSuccess(true);
           setloadState("notLoading");
-          props.history.push("/process/view");
+          // props.history.push("/process/view");
         }
       })
       .catch((error) => {
@@ -139,7 +142,14 @@ const FillFileProcess = (props) => {
         setloadState("loadFailed");
       });
   };
-  return (
+  return success ? (
+    <Success
+      type="filedProcess"
+      message="You have successfully filed a process"
+      link="/process/view"
+      direction="filed processes"
+    />
+  ) : (
     <div>
       <section className="sign-in-page bg-white align-process">
         <div className="align-self-center">
