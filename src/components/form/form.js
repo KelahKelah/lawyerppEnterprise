@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./form.css";
 import { withRouter } from "react-router-dom";
+import Success from "../success/success";
 
 const Form = (props) => {
   const [inputs, setInputs] = useState({});
   const [clientData, setClientData] = useState();
   const [lawyerData, setLawyerData] = useState();
+  const [success, setSuccess] = useState(false);
 
   const clientUrl =
     "https://lawyerppenterprise.herokuapp.com/api/court/clients";
@@ -31,7 +33,7 @@ const Form = (props) => {
       .then((res) => {
         console.log(res);
         if (res.status == 200) {
-          props.history.push("/courts");
+          setSuccess(true);
         }
       })
       .catch((err) => {
@@ -93,7 +95,14 @@ const Form = (props) => {
   //   }
   // };
 
-  return (
+  return success ? (
+    <Success
+      type="createdCourt"
+      message="You have sucessfully created a court"
+      link="/courts"
+      direction="courts"
+    />
+  ) : (
     <>
       <div className="form-container">
         <div className="form-content mt-0">

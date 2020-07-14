@@ -2,15 +2,18 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./court.css";
 import Loader from "../../components/pageLoader/loader";
+import Success from "../../components/success/success";
 
 const ViewCourt = (props) => {
   const courtUrl = "https://lawyerppenterprise.herokuapp.com/api/court/courts";
   const [courts, setCourts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [inputs, setInputs] = useState({});
+  const [courtId, setCourtId] = useState("");
 
   const [clientData, setClientData] = useState();
   const [lawyerData, setLawyerData] = useState();
+  const [success, setSucess] = useState(false);
 
   const clientUrl =
     "https://lawyerppenterprise.herokuapp.com/api/court/clients";
@@ -19,7 +22,7 @@ const ViewCourt = (props) => {
   const createPostUrl =
     "https://lawyerppenterprise.herokuapp.com/api/court/create";
 
-  const postLawyerUrl = "https://lawyerppenterprise.herokuapp.com/api/court/add_lawyer?courtId";
+  const postLawyerUrl = `https://lawyerppenterprise.herokuapp.com/api/court/add_lawyer?courtId=${courtId}`;
   
   const handleInputs = (e) => {
     console.log("target check", e.target.name)
@@ -32,10 +35,10 @@ const ViewCourt = (props) => {
   const handleSubmitLawyer = (event) => {
     event.preventDefault();
     console.log(inputs);
-
     axios
       .post(postLawyerUrl, inputs)
       .then((res) => {
+        setSucess(true)
         console.log('response to post lawyerData', res);
         // if (res.status == 200) {
         //   props.history.push("/courts");
@@ -78,18 +81,6 @@ const ViewCourt = (props) => {
   }, []);
 
 
-  // // handles inputs form add client form
-  // const handleInputs = (e) => {
-  //   setInputs({
-  //     ...inputs, [e.target.name] : e.target.value
-  //   })
-  // }
-
-  // add client function
-  const addClient = () => {
-    console.log('added client')
-  }
- 
   useEffect(() => {
     axios
       .get(courtUrl)
@@ -110,7 +101,8 @@ const ViewCourt = (props) => {
   }, []);
 
  
-  return isLoading ? (
+  return success ? <Success type="addedLawyer"
+  message="You have successfully added a lawyer"/>: isLoading ? (
     <Loader />
   ) : (
     <div className="container mt-4">
@@ -140,13 +132,13 @@ const ViewCourt = (props) => {
                   <td>{court.judicial_division}</td>
                   <td>{court.judges[0].judge_role}</td>
                   <td>
-                    <button  className="c-pointer court-tr" data-target={`#moreInfo${i}`} data-toggle="modal"className="btn btn-primary text-white" href="" onclick={addClient} target="_blank">View Court</button>
+                    <button  className="c-pointer court-tr" data-target={`#moreInfo${i}`} data-toggle="modal"className="btn btn-primary text-white"  target="_blank">View Court</button>
                   </td>
                   <td>
-                    <button  className="btn btn-primary text-white" type="button" data-toggle="modal" data-target="#lawyer" href="" onclick={addClient} target="_blank">Add Lawyer</button>
+                    <button  className="btn btn-primary text-white" type="button" data-toggle="modal" data-target="#lawyer" href="" onClick={()=>{setCourtId(court._id)}} target="_blank">Add Lawyer</button>
                   </td>
                   <td>
-                    <button className="btn btn-primary text-white" type="button" data-toggle="modal" data-target="#client"href="" onclick={addClient} target="_blank">Add Client</button>
+                    <button className="btn btn-primary text-white" type="button" data-toggle="modal" data-target="#client"href="" target="_blank">Add Client</button>
                   </td>     
            <section>
         {courts.length > 0 &&
@@ -396,7 +388,7 @@ const ViewCourt = (props) => {
                                   <select
                                     class="form-control"
                                     name="judge_administrative_right"
-                                    // onChange={handleInputs}
+                                    onChange={handleInputs}
                                   >
                                     <option></option>
                                     <option>Yes</option>
@@ -411,7 +403,7 @@ const ViewCourt = (props) => {
                                     type="text"
                                     className="form-control"
                                     name="judge_court_designation"
-                                    // onChange={handleInputs}
+                                    onChange={handleInputs}
                                   />
                                 </div>
 

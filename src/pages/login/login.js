@@ -28,9 +28,6 @@ const Login = (props) => {
       .then((response) => {
         console.log(response);
         localStorage.setItem("userData", JSON.stringify(response.data.data));
-        console.log("qwuuuuuuuujqnwww", response.data.data)
-        var token = localStorage.getItem("userData");
-        token = JSON.parse(token).token 
         axios.defaults.headers["x-access-token"] = response.data.data.token;
         props.history.push("/home");
       })
@@ -86,9 +83,7 @@ const Login = (props) => {
               </div>
             </div>
             <div className="col-sm-6">
-              <div className="login-image">
-
-              </div>
+              <div className="login-image"></div>
             </div>
           </div>
         </div>
