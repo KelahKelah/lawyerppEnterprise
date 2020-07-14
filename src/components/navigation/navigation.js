@@ -15,10 +15,7 @@ const Navigation = (props) => {
     <div className="sticky-top">
       <div className="d-flex justify-content-center mb-3 nav-wrapper dropdown">
         <div className="py-3 px-5 dropdown link-content">
-          <Link
-            className="text-black-50 text-decoration-none"
-            to = "/home"
-          >
+          <Link className="text-black-50 text-decoration-none" to="/home">
             <FaHome /> Home
           </Link>
         </div>
@@ -29,7 +26,7 @@ const Navigation = (props) => {
             to="/Court"
             data-toggle="dropdown"
           >
-            Court <FaAngleDown/>
+            Court <FaAngleDown />
           </Link>
           <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <Link className="dropdown-item" to="/create/court">
@@ -44,6 +41,12 @@ const Navigation = (props) => {
             <Link className="dropdown-item" to="/assign/lawyer">
               Assign Lawyer
             </Link>
+            <Link className="dropdown-item" to="/create/organization">
+              Create Organization
+            </Link>
+            <Link className="dropdown-item" to="/view/organization">
+              View Organizations
+            </Link>
           </div>
         </div>
         <div className="py-3 px-5 dropdown link-content">
@@ -52,7 +55,7 @@ const Navigation = (props) => {
             to="/File_Process"
             data-toggle="dropdown"
           >
-            Client <FaAngleDown/>
+            Client <FaAngleDown />
           </NavLink>
           <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <Link className="dropdown-item" to="/process/fill">
