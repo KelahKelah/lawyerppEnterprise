@@ -3,25 +3,22 @@ import axios from "axios";
 import Error from "../../components/error/error";
 import "./payment.css";
 import Loader from "../../components/pageLoader/loader";
+import moment from "moment";
+import Success from "../../components/success/success";
 
 const Payment = (props) => {
   const [costedProcesses, setcostedProcesses] = useState([]);
   const [data, setdata] = useState([]);
   const [error, seterror] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
-    let accessToken = localStorage.getItem("userData");
-    accessToken = JSON.parse(accessToken).token;
-    console.log(accessToken);
     axios
       .get("/fileprocess/filer_costed_process")
       .then((res) => {
         setIsLoading(false);
-        var rawData = res.data.data;
-        var formattedData = formatData(rawData);
         setcostedProcesses(res.data.data);
-        console.log(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -31,10 +28,6 @@ const Payment = (props) => {
       });
   }, []);
 
-  const formatData = (rawData) => {
-    console.log(rawData);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(data);
@@ -43,15 +36,22 @@ const Payment = (props) => {
       .then((response) => {
         console.log(response);
         if (response.status == 200) {
-          alert("Payment Completed");
-          props.history.push("/home");
+          setSuccess(true);
         }
       })
       .catch((error) => {
         console.error(error);
       });
   };
-  return error === "401" ? (
+  
+  return success ? (
+    <Success
+      type="paid"
+      message="You have successfully paid for this process"
+      link="/process/pay"
+      direction="other cases"
+    />
+  ) : error === "401" ? (
     <Error
       message="401"
       advice="You are not supposed to make this selection, log in as an authorised personnel"
@@ -87,7 +87,12 @@ const Payment = (props) => {
                 >
                   <th scope="row">{i + 1}</th>
                   <td>{costedProcess.mode_of_commencement}</td>
-                  <td>{costedProcess.createdAt}</td>
+                  <td>
+                    {moment(
+                      costedProcess.createdAt,
+                      "YYYY-MM-DDTHH:mm:ss"
+                    ).format("DD/MM/YYYY")}
+                  </td>
                   <td>{costedProcess.amount}</td>
                 </tr>
               );
