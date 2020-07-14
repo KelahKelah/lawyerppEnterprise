@@ -28,7 +28,6 @@ const ViewCourt = (props) => {
   };
 
   
-
   // Post request to create form
   const handleSubmitLawyer = (event) => {
     event.preventDefault();
