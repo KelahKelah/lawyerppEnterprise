@@ -13,6 +13,9 @@ const Payment = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [success, setSuccess] = useState(false);
 
+  var token = JSON.parse(localStorage.getItem("userData")).token;
+  console.log(token);
+
   useEffect(() => {
     axios
       .get("/fileprocess/filer_costed_process")
@@ -43,7 +46,7 @@ const Payment = (props) => {
         console.error(error);
       });
   };
-  
+
   return success ? (
     <Success
       type="paid"
