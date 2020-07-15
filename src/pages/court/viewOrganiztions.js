@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import axios from "axios";
+import Loader from "../../components/pageLoader/loader";
 
 const ViewOrganiztions = () => {
   const [organizations, setOrganizations] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     axios
       .get(
         "https://lawyerppenterprise.herokuapp.com/api/corporg/user_orgs/:15/:1"
       )
       .then((result) => {
+        setLoading(false);
         setOrganizations(result.data.data);
         console.log(result.data);
       })
@@ -18,7 +21,9 @@ const ViewOrganiztions = () => {
       });
   }, []);
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <div className="container mt-4">
       <table className="table">
         <thead className="thead-dark">
@@ -70,7 +75,6 @@ const ViewOrganiztions = () => {
                 >
                   <div className="modal-content">
                     <div className="modal-header border-0">
-                      <b className="modal-title ">Organization Details</b>
                       <button
                         type="button"
                         className="close"
@@ -82,7 +86,7 @@ const ViewOrganiztions = () => {
                     </div>
                     <div className="modal-body row">
                       <div className="col-6 border-left">
-                        <h3 className="mt-3">Details</h3>
+                        <h3 className="mt-1">Organization Details</h3>
                         <ul>
                           <li className="staff_list">
                             <small>
@@ -134,7 +138,7 @@ const ViewOrganiztions = () => {
                         </ul>
                       </div>
                       <div className="col-6 border-left">
-                        <h3 className="mt-3">Owner Details</h3>
+                        <h3 className="mt-1">Owner Details</h3>
                         <ul>
                           <li className="staff_list">
                             <small>
