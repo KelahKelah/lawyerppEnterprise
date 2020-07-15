@@ -334,11 +334,10 @@ const ViewCourt = (props) => {
                                     <option value={lawyer._id} key={i}>
                                       {lawyer.first_name + " " + lawyer.last_name}
                                     </option>
-                                  ))} */}
+                                  ))} */
                                 {/* {getAllLawyerData()}        */}
                               </select>
                             </div>
-
                                 <div className="form-group">
                                   <label htmlFor="exampleInputNumber1">
                                     Year of appointment to court

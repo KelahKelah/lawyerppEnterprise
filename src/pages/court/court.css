@@ -8,7 +8,7 @@
 
 .staff_list {
   line-height: 20px;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
 }
 
 /* .staff_list small {
