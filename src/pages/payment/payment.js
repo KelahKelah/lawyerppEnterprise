@@ -52,17 +52,6 @@ const Payment = (props) => {
       });
   };
 
-  const openModal = (id, e) => {
-    e.preventDefault();
-    let $ = window.$;
-    $("#modal").show();
-    setdata(id);
-  };
-
-  useEffect(() => {
-    console.log("we renderd");
-  }, [success]);
-
   return success ? (
     <Success
       type="paid"
@@ -100,7 +89,7 @@ const Payment = (props) => {
                   className="c-pointer court-tr"
                   data-target={`#moreInfo${i}`}
                   data-toggle="modal"
-                  onClick={(e) => openModal(costedProcess._id, e)}
+                  onClick={() => setdata(costedProcess._id)}
                 >
                   <th scope="row">{i + 1}</th>
                   <td>{costedProcess.mode_of_commencement}</td>
