@@ -15,19 +15,13 @@ administration justice.
 
 
 ## USAGE
-* CLIENT USER
-**Note: there is no sign up as at on this day 15 July 2020 !**
-
-A client who is assigned the role of registra can add price
-A lawyer assiegned the role of a judge can assign a lawyer
 
 
-**ACTION FLOW !**
-<!-- Client logs in ===> Lawyer logs in ===> client files a process ===> lawyer creates court for process ===> lawyer assign cost to case ===> client awaits case for costing 
-===> client proceeds to make payment ===> lawyer assigns a lawyer to the case ===> client logs out. -->
+## USAGE
+ 
+**GENERAL ACTION FLOW !**
+User creates court ⇒ Assigns Judge (a lawyer with administrative right) *Assigns a Client (as a registrar) ⇒ Client (Or anyone )Files a process ⇒ Client (With role of a registrar ) costs the process ⇒ Client (the person who filed the process) view payment cost and proceeds to make payment ⇒ Lawyer (Who has an administrative right) proceeds to assign Lawyer to cas
 
-client logs in ===> Lawyer logs in ===> client files a process ===> lawyer creates court for process ===> client who is assigned the role of registra assigns cost to case ===> client awaits case for costing 
-===> client proceeds to make payment ===> lawyer with the role of a judge assigns a lawyer to the case ===> client logs out.
 **CLIENT USER !**
 
 **CLIENT USER ACTION FLOW !**
@@ -50,6 +44,7 @@ Login ===> Create Court ===> Assign Cost ===> Assign Lawyer
 * Lawyer can logout
 * Lawyer creates a court
 * View all courts
+* File a process
 * Assign a lawyer to court
 
 ## LIST OF FEATURES

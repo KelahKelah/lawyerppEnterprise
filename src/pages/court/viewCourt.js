@@ -38,11 +38,10 @@ const ViewCourt = (props) => {
     axios
       .post(postLawyerUrl, inputs)
       .then((res) => {
+        // if(res.suce)
         setSucess(true)
         console.log('response to post lawyerData', res);
-        // if (res.status == 200) {
-        //   props.history.push("/courts");
-        // }
+      
       }
       )
       .catch((err) => {
@@ -132,13 +131,13 @@ const ViewCourt = (props) => {
                   <td>{court.judicial_division}</td>
                   <td>{court.judges[0].judge_role}</td>
                   <td>
-                    <button  className="c-pointer court-tr" data-target={`#moreInfo${i}`} data-toggle="modal"className="btn btn-primary text-white"  target="_blank">View Court</button>
+                    <button  className="btn btn-primary text-white c-pointer" data-target={`#moreInfo${i}`} data-toggle="modal" target="_blank">View Court</button>
                   </td>
                   <td>
-                    <button  className="btn btn-primary text-white" type="button" data-toggle="modal" data-target="#lawyer" href="" onClick={()=>{setCourtId(court._id)}} target="_blank">Add Lawyer</button>
+                    <button  className="btn btn-primary text-white c-pointer" type="button" data-toggle="modal" data-target="#lawyer" href="" onClick={()=>{setCourtId(court._id)}} target="_blank">Add Lawyer</button>
                   </td>
                   <td>
-                    <button className="btn btn-primary text-white" type="button" data-toggle="modal" data-target="#client"href="" target="_blank">Add Client</button>
+                    <button className="btn btn-primary text-white c-pointer" type="button" data-toggle="modal" data-target="#client"href="" target="_blank">Add Client</button>
                   </td>     
            <section>
         {courts.length > 0 &&
