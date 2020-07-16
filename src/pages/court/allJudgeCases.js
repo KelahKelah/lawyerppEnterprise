@@ -6,7 +6,7 @@ import Loader from "../../components/pageLoader/loader";
 import Success from "../../components/success/success";
 
 const JudgeCases = (props) => {
-  const lawfirms = `/fileprocess/All_court_filed_process?courtId=${props.match.params.id}`;
+  const lawfirms = `/fileprocess/payed_processes?courtId=${props.match.params.id}`;
   const [cases, setCases] = useState([]);
   const [lawyers, setLawyers] = useState([]);
   const [data, setdata] = useState({
