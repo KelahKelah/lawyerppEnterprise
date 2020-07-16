@@ -37,9 +37,12 @@ const ViewCourt = (props) => {
     axios
       .post(postLawyerUrl, inputs)
       .then((res) => {
-        setSucess(true);
-        console.log("response to post lawyerData", res);
-      })
+        // if(res.suce)
+        setSucess(true)
+        console.log('response to post lawyerData', res);
+      
+      }
+      )
       .catch((err) => {
         if (err.message === "Request failed with status code 401") {
           props.setUnauthorized(true);
@@ -126,82 +129,48 @@ const ViewCourt = (props) => {
                   <td>{court.judicial_division}</td>
                   <td>{court.judges[0].judge_role}</td>
                   <td>
-                    <button
-                      className="c-pointer court-tr"
-                      data-target={`#moreInfo${i}`}
-                      data-toggle="modal"
-                      className="btn btn-primary text-white"
-                      target="_blank"
-                    >
-                      View Court
-                    </button>
+                    <button  className="btn btn-primary text-white c-pointer" data-target={`#moreInfo${i}`} data-toggle="modal" target="_blank">View Court</button>
                   </td>
                   <td>
-                    <button
-                      className="btn btn-primary text-white"
-                      type="button"
-                      data-toggle="modal"
-                      data-target="#lawyer"
-                      href=""
-                      onClick={() => {
-                        setCourtId(court._id);
-                      }}
-                      target="_blank"
-                    >
-                      Add Lawyer
-                    </button>
+                    <button  className="btn btn-primary text-white c-pointer" type="button" data-toggle="modal" data-target="#lawyer" href="" onClick={()=>{setCourtId(court._id)}} target="_blank">Add Lawyer</button>
                   </td>
                   <td>
-                    <button
-                      className="btn btn-primary text-white"
-                      type="button"
-                      data-toggle="modal"
-                      data-target="#client"
-                      href=""
-                      target="_blank"
-                    >
-                      Add Client
-                    </button>
-                  </td>
-                  <section>
-                    {courts.length > 0 &&
-                      courts.map((court, i) => {
-                        return (
-                          <div
-                            className="modal fade"
-                            tabIndex="-1"
-                            role="dialog"
-                            id={`moreInfo${i}`}
-                          >
-                            <div
-                              className="modal-dialog modal-dialog-centered modal-lg"
-                              role="document"
-                            >
-                              <div className="modal-content">
-                                <div className="modal-header border-0">
-                                  <h5 className="modal-title ">
-                                    {court.name_Of_court}
-                                  </h5>
-                                  <button
-                                    type="button"
-                                    className="close"
-                                    data-dismiss="modal"
-                                    aria-label="Close"
-                                  >
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                                </div>
-                                <div className="modal-body">
-                                  <div className="row mx-0">
-                                    <div className="col-6 border-left">
-                                      <p>
-                                        <b>Court's designation: </b>
-                                        {
-                                          court.courts_designations[0]
-                                            .court_designation
-                                        }
-                                      </p>
-                                      {/* <p><b>Staff role: </b>{court.court_staff[0].staff_role}</p>
+                    <button className="btn btn-primary text-white c-pointer" type="button" data-toggle="modal" data-target="#client"href="" target="_blank">Add Client</button>
+                  </td>     
+           <section>
+        {courts.length > 0 &&
+          courts.map((court, i) => {
+            return (
+              <div
+                className="modal fade"
+                tabIndex="-1"
+                role="dialog"
+                id={`moreInfo${i}`}
+              >
+                <div
+                  className="modal-dialog modal-dialog-centered modal-lg"
+                  role="document"
+                >
+                  <div className="modal-content">
+                    <div className="modal-header border-0">
+                      <h5 className="modal-title ">{court.name_Of_court}</h5>
+                      <button
+                        type="button"
+                        className="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div className="modal-body">
+                      <div className="row mx-0">
+                        <div className="col-6 border-left">
+                          <p>
+                            <b>Court's designation: </b>
+                            {court.courts_designations[0].court_designation}
+                          </p>
+                          {/* <p><b>Staff role: </b>{court.court_staff[0].staff_role}</p>
                                                 <p><b>Staff's administrative right: </b>{court.court_staff[0].staff_administrative_right}</p>
                                                 <p><b>Judge role: </b>{court.judges[0].judge_role}</p>
                                                 <p><b>Year of appointment: </b>{new Date(court.judges[0].year_of_appointment_to_court).getFullYear()}</p> */}

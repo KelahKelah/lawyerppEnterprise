@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Loader from "../../components/pageLoader/loader";
+import Success from "../../components/success/success";
 
 const ViewFileProcesses = (props) => {
   const [allFileProcesses, setAllFileProcesses] = useState([]);
-  const viewFileProcessesUrl = "/fileprocess/filer_filed_process";
   const [isLoading, setIsLoading] = useState(true);
+  const [disabled, setDisabled] = useState(true)
+  const viewFileProcessesUrl = "/fileprocess/filer_filed_process";
+
 
   useEffect(() => {
     axios
@@ -15,15 +18,28 @@ const ViewFileProcesses = (props) => {
         console.log("allFileProcess", res.data.data);
         console.log("we", res);
         setAllFileProcesses(res.data.data);
+        setDisabled(false)
       })
       .catch((error) => {
         if (error.message === "Request failed with status code 401") {
           props.setUnauthorized(true);
         }
       });
+
+      // axios
+      // .get()
+      // .then((response) => {
+      //   if(true) {
+      //     console.log(allAssignedLawyer)
+      //   }
+      // })
+
   }, []);
 
-  return isLoading ? (
+  console.log(disabled)
+
+  
+   return  isLoading ? (
     <Loader />
   ) : (
     <div className="container mt-4">
@@ -34,6 +50,7 @@ const ViewFileProcesses = (props) => {
             <th scope="col">Filer</th>
             <th scope="col">Mode of commencement</th>
             <th scope="col">Amount (&#8358;)</th>
+            <th scope="col">Lawyer</th>
           </tr>
         </thead>
         <tbody>
@@ -41,14 +58,34 @@ const ViewFileProcesses = (props) => {
             allFileProcesses.map((allFileProcesses, i) => {
               return (
                 <tr
-                  className="c-pointer allFileProcesses-tr"
-                  data-target={`#moreInfo${i}`}
-                  data-toggle="modal"
+                  // className="c-pointer allFileProcesses-tr"
+                  // data-target={`#moreInfo${i}`}
+                  // data-toggle="modal"
                 >
                   <th scope="row">{i + 1}</th>
-                  <td>{allFileProcesses.filing_as}</td>
-                  <td>{allFileProcesses.mode_of_commencement}</td>
-                  <td>{allFileProcesses.amount || " - "}</td>
+                  <td  
+                    className="c-pointer allFileProcesses-tr"
+                    data-target={`#moreInfo${i}`}
+                    data-toggle="modal"
+                  >{allFileProcesses.filing_as}
+                  </td>
+
+                  <td  
+                    className="c-pointer allFileProcesses-tr"
+                    data-target={`#moreInfo${i}`}
+                    data-toggle="modal"
+                  >{allFileProcesses.mode_of_commencement}
+                  </td>
+
+                  <td  
+                    className="c-pointer allFileProcesses-tr"
+                    data-target={`#moreInfo${i}`}
+                    data-toggle="modal"
+                  >{allFileProcesses.amount || " - "}
+                  </td>
+                  <td>
+                    <button type='button' className={`${disabled?"disabled":""} btn btn-primary text-white`} data-toggle='' data-target='' target='' disabled={disabled}>View assigned Lawyer</button>
+                  </td>
                 </tr>
               );
             })}

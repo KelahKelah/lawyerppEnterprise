@@ -1,9 +1,9 @@
 .login-image {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(97, 50, 50, 0.6)),
     url("../../assets/gavel.jpg") !important;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: 50% 50%;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-position: center;
 
   height: 100vh;
   width: 100%;
