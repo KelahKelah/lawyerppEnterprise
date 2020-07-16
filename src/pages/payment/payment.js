@@ -67,8 +67,6 @@ const Payment = (props) => {
     <Success
       type="paid"
       message="You have successfully paid for this process"
-      // link="/process/pay"
-      // direction="other cases"
     />
   ) : error === "401" ? (
     <Error
