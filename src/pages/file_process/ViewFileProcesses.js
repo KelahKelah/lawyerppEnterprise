@@ -17,7 +17,6 @@ const ViewFileProcesses = (props) => {
         setAllFileProcesses(res.data.data);
       })
       .catch((error) => {
-        console.log("ERROR", error.message);
         if (error.message === "Request failed with status code 401") {
           props.setUnauthorized(true);
         }

@@ -24,7 +24,6 @@ const JudgeCases = (props) => {
         setIsLoading(false);
         if (result.status === 200) {
           setCases(result.data.data);
-          console.log("cases", result.data.data);
         }
       })
       .catch((error) => {
@@ -36,7 +35,6 @@ const JudgeCases = (props) => {
           seterror("404");
         }
       });
-
     fetchLawyers();
   }, []);
 
@@ -61,6 +59,8 @@ const JudgeCases = (props) => {
     axios
       .post(`/court/assign_matter?courtId=${props.match.params.id}`, data)
       .then((result) => {
+        let $ = window.$;
+        $(".modal-backdrop").remove();
         setSuccess(true);
         console.log(result);
       })
@@ -68,7 +68,6 @@ const JudgeCases = (props) => {
         console.log(error.message);
         if (error.message === "Request failed with status code 400") {
           seterror("400");
-          console.log("i got here");
         }
       });
   };

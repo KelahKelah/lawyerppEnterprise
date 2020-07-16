@@ -48,15 +48,17 @@ const LawyerCases = (props) => {
     axios
       .post(postUrl, postData)
       .then((result) => {
+        let $ = window.$;
+        $(".modal-backdrop").remove();
         setSuccess(true);
         console.log(result);
       })
       .catch((error) => {
+        console.log(error.message);
         if (error.message === "Request failed with status code 401") {
           seterror("401");
         }
         if (error.message === "Sorry you cannot view this ") {
-          alert("Sorry, you are not supposed to handle this case");
           seterror("404");
         }
       });

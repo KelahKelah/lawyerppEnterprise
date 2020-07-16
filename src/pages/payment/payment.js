@@ -33,16 +33,13 @@ const Payment = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    let $ = window.$;
-    
     console.log(data);
     axios
     .post(`/fileprocess/filer_payment?processId=${data}`)
     .then((response) => {
       console.log(response);
-      
       if (response.status == 200) {
+        let $ = window.$;
         $(".modal-backdrop").remove();
           setSuccess(true);
         }
