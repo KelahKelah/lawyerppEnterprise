@@ -21,7 +21,9 @@ const ViewOrganiztions = () => {
       });
   }, []);
 
-  return loading ? (
+  return organizations.length === 0 ? (
+    <h1 className="text-center">No Organization created yet!</h1>
+  ) : loading ? (
     <Loader />
   ) : (
     <div className="container mt-4">
@@ -36,7 +38,6 @@ const ViewOrganiztions = () => {
         </thead>
         <tbody>
           {organizations &&
-            organizations.length &&
             organizations.map((organization, i) => {
               return (
                 <tr
@@ -60,7 +61,6 @@ const ViewOrganiztions = () => {
       </table>
       <section>
         {organizations &&
-          organizations.length > 0 &&
           organizations.map((organization, i) => {
             return (
               <div

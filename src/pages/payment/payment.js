@@ -187,7 +187,11 @@ const Payment = (props) => {
                               </small>
                               <br />
                               <small>
-                                <b>Whatsapp number: </b>N/A
+                                <b>Whatsapp number: </b>
+                                {(costedProcess.client_details.filer_name &&
+                                  costedProcess.client_details.filer_name
+                                    .phone_number) ||
+                                  "N/A"}
                               </small>
                               <br />
                               <small>
@@ -337,7 +341,16 @@ const Payment = (props) => {
                                 {(costedProcess.lawyerpp_cocounsil[0]
                                   .lawyerpp_cocounsil_id &&
                                   costedProcess.lawyerpp_cocounsil[0]
-                                    .lawyerpp_cocounsil_id.whatsapp_number) ||
+                                    .lawyerpp_cocounsil_id.phone_number) ||
+                                  "N/A"}
+                              </small>
+                              <br />
+                              <small>
+                                <b>Enrollment number: </b>
+                                {(costedProcess.lawyerpp_cocounsil[0]
+                                  .lawyerpp_cocounsil_id &&
+                                  costedProcess.lawyerpp_cocounsil[0]
+                                    .lawyerpp_cocounsil_id.enrollment_number) ||
                                   "N/A"}
                               </small>
                               <br />

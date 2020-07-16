@@ -105,8 +105,8 @@ const ViewCourt = (props) => {
           <tr>
             <th scope="col">#</th>
             <th scope="col">Name</th>
-            <th scope="col">Judicial division</th>
-            <th scope="col">Judge Rolesss</th>
+            <th scope="col">Judicial Division</th>
+            <th scope="col">Judge Role</th>
             <th></th>
             <th></th>
             <th></th>

@@ -213,7 +213,10 @@ const LawyerCases = (props) => {
                               </small>
                               <br />
                               <small>
-                                <b>Whatsapp number: </b>N/A
+                                <b>Whatsapp number: </b>
+                                {caseDetail.client_details.filer_name &&
+                                  caseDetail.client_details.filer_name
+                                    .phone_number}
                               </small>
                               <br />
                               <small>
@@ -336,6 +339,14 @@ const LawyerCases = (props) => {
                               <br />
                               <small>
                                 <b>Phone number: </b>
+                                {caseDetail.lawyerpp_cocounsil[0]
+                                  .lawyerpp_cocounsil_id &&
+                                  caseDetail.lawyerpp_cocounsil[0]
+                                    .lawyerpp_cocounsil_id.phone_number}
+                              </small>
+                              <br />
+                              <small>
+                                <b>Whatsapp number: </b>
                                 {caseDetail.lawyerpp_cocounsil[0]
                                   .lawyerpp_cocounsil_id &&
                                   caseDetail.lawyerpp_cocounsil[0]

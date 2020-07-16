@@ -11,7 +11,7 @@ const JudgeCases = (props) => {
   const [lawyers, setLawyers] = useState([]);
   const [data, setdata] = useState({
     lawyerId: "",
-    fileProcessId: "",
+    filedProcessId: "",
   });
   const [error, seterror] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -115,7 +115,7 @@ const JudgeCases = (props) => {
                   data-target={`#moreInfo${i}`}
                   data-toggle="modal"
                   onClick={(e) =>
-                    setdata({ ...data, fileProcessId: singleCase._id })
+                    setdata({ ...data, filedProcessId: singleCase._id })
                   }
                 >
                   <th scope="row">{i + 1}</th>
@@ -258,7 +258,10 @@ const JudgeCases = (props) => {
                               </small>
                               <br />
                               <small>
-                                <b>Whatsapp number: </b>N/A
+                                <b>Whatsapp number: </b>
+                                {caseDetail.client_details.filer_name &&
+                                  caseDetail.client_details.filer_name
+                                    .phone_number}
                               </small>
                               <br />
                               <small>

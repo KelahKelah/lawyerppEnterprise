@@ -136,7 +136,11 @@ const ViewFileProcesses = (props) => {
                               </small>
                               <br />
                               <small>
-                                <b>Whatsapp number: </b>N/A
+                                <b>Whatsapp number: </b>
+                                {(caseDetail.client_details.filer_name &&
+                                  caseDetail.client_details.filer_name
+                                    .phone_number) ||
+                                  "N/A"}
                               </small>
                               <br />
                               <small>
@@ -285,7 +289,16 @@ const ViewFileProcesses = (props) => {
                                 {(caseDetail.lawyerpp_cocounsil[0]
                                   .lawyerpp_cocounsil_id &&
                                   caseDetail.lawyerpp_cocounsil[0]
-                                    .lawyerpp_cocounsil_id.whatsapp_number) ||
+                                    .lawyerpp_cocounsil_id.phone_number) ||
+                                  "N/A"}
+                              </small>
+                              <br />
+                              <small>
+                                <b>Enrolment Number: </b>
+                                {(caseDetail.lawyerpp_cocounsil[0]
+                                  .lawyerpp_cocounsil_id &&
+                                  caseDetail.lawyerpp_cocounsil[0]
+                                    .lawyerpp_cocounsil_id.enrollment_number) ||
                                   "N/A"}
                               </small>
                               <br />
@@ -423,7 +436,7 @@ const ViewFileProcesses = (props) => {
                               </small>
                               <br />
                               <small>
-                                <b>Enrolment number: </b>
+                                <b>Enrolment Number: </b>
                                 {(caseDetail.opposing_lawyers[0]
                                   .opposing_lawyer_id &&
                                   caseDetail.opposing_lawyers[0]
@@ -464,7 +477,7 @@ const ViewFileProcesses = (props) => {
                               </small>
                               <br />
                               <small>
-                                <b>WhatsApp number: </b>
+                                <b>WhatsApp Number: </b>
                                 {(caseDetail.opposing_party[0]
                                   .opposing_party_Id &&
                                   caseDetail.opposing_party[0].opposing_party_Id
