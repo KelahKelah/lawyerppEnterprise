@@ -33,12 +33,17 @@ const Payment = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    let $ = window.$;
+    
     console.log(data);
     axios
-      .post(`/fileprocess/filer_payment?processId=${data}`)
-      .then((response) => {
-        console.log(response);
-        if (response.status == 200) {
+    .post(`/fileprocess/filer_payment?processId=${data}`)
+    .then((response) => {
+      console.log(response);
+      
+      if (response.status == 200) {
+        $(".modal-backdrop").remove();
           setSuccess(true);
         }
       })
@@ -47,12 +52,23 @@ const Payment = (props) => {
       });
   };
 
+  const openModal = (id, e) => {
+    e.preventDefault();
+    let $ = window.$;
+    $("#modal").show();
+    setdata(id);
+  };
+
+  useEffect(() => {
+    console.log("we renderd");
+  }, [success]);
+
   return success ? (
     <Success
       type="paid"
       message="You have successfully paid for this process"
-      link="/process/pay"
-      direction="other cases"
+      // link="/process/pay"
+      // direction="other cases"
     />
   ) : error === "401" ? (
     <Error
@@ -86,7 +102,7 @@ const Payment = (props) => {
                   className="c-pointer court-tr"
                   data-target={`#moreInfo${i}`}
                   data-toggle="modal"
-                  onClick={(e) => setdata(costedProcess._id)}
+                  onClick={(e) => openModal(costedProcess._id, e)}
                 >
                   <th scope="row">{i + 1}</th>
                   <td>{costedProcess.mode_of_commencement}</td>
@@ -111,6 +127,7 @@ const Payment = (props) => {
               <div
                 className="modal fade"
                 tabIndex="-1"
+                // id={"modal"}
                 role="dialog"
                 id={`moreInfo${i}`}
               >
