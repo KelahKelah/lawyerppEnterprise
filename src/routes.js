@@ -15,6 +15,7 @@ import CourtsForJudge from "./pages/court/courtsForJudge";
 import JudgeCase from "./pages/court/allJudgeCases";
 import CreateOrgainization from "./pages/court/createOrganization";
 import ViewOrganiztions from "./pages/court/viewOrganiztions";
+import ViewSingleProcess from "./pages/file_process/ViewSingleProcess";
 import Error from "./components/error/error";
 
 const MainRoute = ({ Component, path, exact, purpose, auth, ...rest }) => {
@@ -37,6 +38,22 @@ const MainRoute = ({ Component, path, exact, purpose, auth, ...rest }) => {
     />
   );
 };
+const SingleProcessRoute = ({ Component, path, exact, purpose, auth, ...rest }) => {
+  return (
+    <Route
+      exact={exact}
+      path={path}
+      {...rest}
+      render={(props) =>
+          <div>
+            <Navigation />
+            <Component {...rest} {...props} />
+          </div>
+        
+      }
+    />
+  );
+};
 
 const Routes = () => {
   return (
@@ -54,6 +71,7 @@ const Routes = () => {
           <MainRoute exact path="/process/fill" Component={FillFileProcesses} />
           <MainRoute exact path="/process/view" Component={ViewFileProcesses} />
           <MainRoute exact path="/process/pay" Component={Payment} />
+          <SingleProcessRoute exact path="/process/view/:id" Component={ViewSingleProcess} />
           <MainRoute exact path="/assign/lawyer" Component={CourtsForJudge} />
           <MainRoute exact path="/assign/lawyer/:id" Component={JudgeCase} />
           <MainRoute
