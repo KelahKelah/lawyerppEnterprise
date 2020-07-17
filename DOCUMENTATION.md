@@ -21,7 +21,7 @@ administration justice.
  
 **GENERAL ACTION FLOW !**
 User creates court ⇒ Assigns Judge (a lawyer with administrative right) *Assigns a Client (as a registrar) ⇒ Client (Or anyone )Files a process ⇒ Client (With role of a registrar ) costs the process ⇒ Client (the person who filed the process) view payment cost and proceeds to make payment ⇒ Lawyer (Who has an administrative right) proceeds to assign Lawyer to cas
-
+ 
 **CLIENT USER !**
 
 **CLIENT USER ACTION FLOW !**
