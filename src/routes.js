@@ -14,7 +14,7 @@ import Lawfirms from "./pages/court/lawfirms";
 import CourtsForJudge from "./pages/court/courtsForJudge";
 import JudgeCase from "./pages/court/allJudgeCases";
 import CreateOrgainization from "./pages/court/createOrganization";
-import ViewOrganiztions from './pages/court/viewOrganiztions'
+import ViewOrganiztions from "./pages/court/viewOrganiztions";
 import Error from "./components/error/error";
 
 const MainRoute = ({ Component, path, exact, purpose, auth, ...rest }) => {
