@@ -103,8 +103,7 @@ const Success = (props) => {
               <h1>Success</h1>
               <p>
                 {props.message};
-                <br /> Click <Link to={`${props.link}`}>here</Link> to view{" "}
-                {props.direction} or click <Link to="/home">here</Link> to go
+                <br /> Click <Link to="/home">here</Link> to go
                 back home!
               </p>
             </div>

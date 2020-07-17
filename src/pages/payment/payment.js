@@ -13,6 +13,9 @@ const Payment = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [success, setSuccess] = useState(false);
 
+  var token = JSON.parse(localStorage.getItem("userData")).token;
+  console.log(token);
+
   useEffect(() => {
     axios
       .get("/fileprocess/filer_costed_process")
@@ -32,10 +35,12 @@ const Payment = (props) => {
     e.preventDefault();
     console.log(data);
     axios
-      .post(`/fileprocess/filer_payment?processId=${data}`)
-      .then((response) => {
-        console.log(response);
-        if (response.status == 200) {
+    .post(`/fileprocess/filer_payment?processId=${data}`)
+    .then((response) => {
+      console.log(response);
+      if (response.status == 200) {
+        let $ = window.$;
+        $(".modal-backdrop").remove();
           setSuccess(true);
         }
       })
@@ -43,13 +48,11 @@ const Payment = (props) => {
         console.error(error);
       });
   };
-  
+
   return success ? (
     <Success
       type="paid"
       message="You have successfully paid for this process"
-      link="/process/pay"
-      direction="other cases"
     />
   ) : error === "401" ? (
     <Error
@@ -83,7 +86,7 @@ const Payment = (props) => {
                   className="c-pointer court-tr"
                   data-target={`#moreInfo${i}`}
                   data-toggle="modal"
-                  onClick={(e) => setdata(costedProcess._id)}
+                  onClick={() => setdata(costedProcess._id)}
                 >
                   <th scope="row">{i + 1}</th>
                   <td>{costedProcess.mode_of_commencement}</td>
@@ -108,6 +111,7 @@ const Payment = (props) => {
               <div
                 className="modal fade"
                 tabIndex="-1"
+                // id={"modal"}
                 role="dialog"
                 id={`moreInfo${i}`}
               >
@@ -183,7 +187,11 @@ const Payment = (props) => {
                               </small>
                               <br />
                               <small>
-                                <b>Whatsapp number: </b>N/A
+                                <b>Whatsapp number: </b>
+                                {(costedProcess.client_details.filer_name &&
+                                  costedProcess.client_details.filer_name
+                                    .phone_number) ||
+                                  "N/A"}
                               </small>
                               <br />
                               <small>
@@ -333,7 +341,16 @@ const Payment = (props) => {
                                 {(costedProcess.lawyerpp_cocounsil[0]
                                   .lawyerpp_cocounsil_id &&
                                   costedProcess.lawyerpp_cocounsil[0]
-                                    .lawyerpp_cocounsil_id.whatsapp_number) ||
+                                    .lawyerpp_cocounsil_id.phone_number) ||
+                                  "N/A"}
+                              </small>
+                              <br />
+                              <small>
+                                <b>Enrollment number: </b>
+                                {(costedProcess.lawyerpp_cocounsil[0]
+                                  .lawyerpp_cocounsil_id &&
+                                  costedProcess.lawyerpp_cocounsil[0]
+                                    .lawyerpp_cocounsil_id.enrollment_number) ||
                                   "N/A"}
                               </small>
                               <br />
