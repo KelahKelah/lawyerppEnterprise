@@ -6,12 +6,12 @@ import Loader from "../../components/pageLoader/loader";
 import Success from "../../components/success/success";
 
 const JudgeCases = (props) => {
-  const lawfirms = `/fileprocess/All_court_filed_process?courtId=${props.match.params.id}`;
+  const lawfirms = `/fileprocess/payed_processes?courtId=${props.match.params.id}`;
   const [cases, setCases] = useState([]);
   const [lawyers, setLawyers] = useState([]);
   const [data, setdata] = useState({
     lawyerId: "",
-    fileProcessId: "",
+    filedProcessId: "",
   });
   const [error, seterror] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -24,7 +24,6 @@ const JudgeCases = (props) => {
         setIsLoading(false);
         if (result.status === 200) {
           setCases(result.data.data);
-          console.log("cases", result.data.data);
         }
       })
       .catch((error) => {
@@ -36,7 +35,6 @@ const JudgeCases = (props) => {
           seterror("404");
         }
       });
-
     fetchLawyers();
   }, []);
 
@@ -61,6 +59,8 @@ const JudgeCases = (props) => {
     axios
       .post(`/court/assign_matter?courtId=${props.match.params.id}`, data)
       .then((result) => {
+        let $ = window.$;
+        $(".modal-backdrop").remove();
         setSuccess(true);
         console.log(result);
       })
@@ -68,7 +68,6 @@ const JudgeCases = (props) => {
         console.log(error.message);
         if (error.message === "Request failed with status code 400") {
           seterror("400");
-          console.log("i got here");
         }
       });
   };
@@ -116,7 +115,7 @@ const JudgeCases = (props) => {
                   data-target={`#moreInfo${i}`}
                   data-toggle="modal"
                   onClick={(e) =>
-                    setdata({ ...data, fileProcessId: singleCase._id })
+                    setdata({ ...data, filedProcessId: singleCase._id })
                   }
                 >
                   <th scope="row">{i + 1}</th>
@@ -259,7 +258,10 @@ const JudgeCases = (props) => {
                               </small>
                               <br />
                               <small>
-                                <b>Whatsapp number: </b>N/A
+                                <b>Whatsapp number: </b>
+                                {caseDetail.client_details.filer_name &&
+                                  caseDetail.client_details.filer_name
+                                    .phone_number}
                               </small>
                               <br />
                               <small>

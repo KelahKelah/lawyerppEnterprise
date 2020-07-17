@@ -1,46 +1,46 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Loader from "../../components/pageLoader/loader";
-import Success from "../../components/success/success";
 
 const ViewFileProcesses = (props) => {
   const [allFileProcesses, setAllFileProcesses] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [disabled, setDisabled] = useState(true)
+  const [disabled, setDisabled] = useState("false");
   const viewFileProcessesUrl = "/fileprocess/filer_filed_process";
-
+  const [assingedLawyers, setAssingedLawyers] = useState({});
 
   useEffect(() => {
     axios
       .get(viewFileProcessesUrl)
       .then((res) => {
         setIsLoading(false);
-        console.log("allFileProcess", res.data.data);
-        console.log("we", res);
         setAllFileProcesses(res.data.data);
-        setDisabled(false)
+        setDisabled(false);
       })
       .catch((error) => {
-        console.log("ERROR", error.message);
         if (error.message === "Request failed with status code 401") {
           props.setUnauthorized(true);
         }
       });
-
-      // axios
-      // .get()
-      // .then((response) => {
-      //   if(true) {
-      //     console.log(allAssignedLawyer)
-      //   }
-      // })
-
   }, []);
+  const fetchAssignedLawyers = (processId) => {
+    setDisabled("loading");
+    axios
+      .get(
+        `https://lawyerppenterprise.herokuapp.com/api/fileprocess/assigned_lawyer?processId=${processId}`
+      )
+      .then((result) => {
+        setDisabled("false");
+        setAssingedLawyers(result.data.data);
+      })
+      .catch((error) => {
+        if (error.message == "Request failed with status code 400") {
+          setDisabled("true");
+        }
+      });
+  };
 
-  console.log(disabled)
-
-  
-   return  isLoading ? (
+  return isLoading ? (
     <Loader />
   ) : (
     <div className="container mt-4">
@@ -48,10 +48,10 @@ const ViewFileProcesses = (props) => {
         <thead className="thead-dark">
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Filer</th>
             <th scope="col">Mode of commencement</th>
             <th scope="col">Amount (&#8358;)</th>
             <th scope="col">Lawyer</th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
@@ -59,39 +59,147 @@ const ViewFileProcesses = (props) => {
             allFileProcesses.map((allFileProcesses, i) => {
               return (
                 <tr
-                  // className="c-pointer allFileProcesses-tr"
-                  // data-target={`#moreInfo${i}`}
-                  // data-toggle="modal"
+                // className="c-pointer allFileProcesses-tr"
+                // data-target={`#moreInfo${i}`}
+                // data-toggle="modal"
                 >
                   <th scope="row">{i + 1}</th>
-                  <td  
+
+                  <td
                     className="c-pointer allFileProcesses-tr"
                     data-target={`#moreInfo${i}`}
                     data-toggle="modal"
-                  >{allFileProcesses.filing_as}
+                  >
+                    {allFileProcesses.mode_of_commencement}
                   </td>
 
-                  <td  
+                  <td
                     className="c-pointer allFileProcesses-tr"
                     data-target={`#moreInfo${i}`}
                     data-toggle="modal"
-                  >{allFileProcesses.mode_of_commencement}
-                  </td>
-
-                  <td  
-                    className="c-pointer allFileProcesses-tr"
-                    data-target={`#moreInfo${i}`}
-                    data-toggle="modal"
-                  >{allFileProcesses.amount || " - "}
+                  >
+                    {allFileProcesses.amount || " - "}
                   </td>
                   <td>
-                    <button type='button' className={`${disabled?"disabled":""} btn btn-primary text-white`} data-toggle='' data-target='' target='' disabled={disabled}>View assigned Lawyer</button>
+                    <button
+                      type="button"
+                      className="btn btn-primary text-white"
+                      data-toggle="modal"
+                      data-target="#assignedLawyer"
+                      onClick={() => fetchAssignedLawyers(allFileProcesses._id)}
+                    >
+                      View assigned Lawyer
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      className="btn btn-primary text-white"
+                      onClick={() =>
+                        props.history.push(
+                          `/process/view/${allFileProcesses._id}`
+                        )
+                      }
+                    >
+                      View Single file process
+                    </button>
                   </td>
                 </tr>
               );
             })}
         </tbody>
       </table>
+
+      {/* Modal for assigned lawyer */}
+      <section>
+        <div
+          className="modal fade"
+          id="assignedLawyer"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="Assigned lawyer"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog modal-dialog-centered" role="document">
+            <div className="modal-content">
+              <div className="modal-header border-0">
+                <h5 className="modal-title" id="exampleModalLongTitle">
+                  Lawyer Details
+                </h5>
+                <button
+                  type="button"
+                  className="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              {disabled === "true" ? (
+                <div className="modal-body">
+                  <p className="text-center">
+                    This case hasn't been assigned a lawyer yet!!!
+                  </p>
+                </div>
+              ) : disabled === "loading" ? (
+                <div className="modal-body">
+                  <p className="text-center">Wait a moment...</p>
+                </div>
+              ) : (
+                <div className="modal-body">
+                  <small>
+                    <b>Lawyer Name: </b>
+                    {Object.keys(assingedLawyers).length > 0 &&
+                      assingedLawyers.assignedJudgeId.first_name +
+                        " " +
+                        assingedLawyers.assignedJudgeId.last_name}
+                  </small>
+                  <br />
+                  <small>
+                    <b>Email address: </b>
+                    {Object.keys(assingedLawyers).length > 0 &&
+                      assingedLawyers.assignedJudgeId.email_address}
+                  </small>
+                  <br />
+                  <small>
+                    <b>Phone number: </b>
+                    {Object.keys(assingedLawyers).length > 0 &&
+                      assingedLawyers.assignedJudgeId.phone_number}
+                  </small>
+                  <br />
+                  <small>
+                    <b>Enrollment number: </b>
+                    {Object.keys(assingedLawyers).length > 0 &&
+                      assingedLawyers.assignedJudgeId.enrollment_number}
+                  </small>
+                  <br />
+                  <small>
+                    <b>Name of Court: </b>
+                    {Object.keys(assingedLawyers).length > 0 &&
+                      assingedLawyers.courtId.name_Of_court}
+                  </small>
+                  <br />
+                  <small>
+                    <b>Judicial Division: </b>
+                    {Object.keys(assingedLawyers).length > 0 &&
+                      assingedLawyers.courtId.judicial_division}
+                  </small>
+                  <br />
+                  <small>
+                    <b>Court Designation: </b>
+                    {Object.keys(assingedLawyers).length > 0 &&
+                      assingedLawyers.courtId.courts_designations[0]
+                        .court_designation}
+                  </small>
+                  <br />
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Modal for filed process */}
       <section>
         {allFileProcesses.length > 0 &&
           allFileProcesses.map((caseDetail, i) => {
@@ -147,11 +255,11 @@ const ViewFileProcesses = (props) => {
                               <br />
                               <small>
                                 <b>Client name: </b>
-                                {(caseDetail.client_details.filer_name &&
+                                {(caseDetail &&
                                   caseDetail.client_details.filer_name
                                     .first_name +
                                     " " +
-                                    caseDetail.client_details.filer_name &&
+                                    caseDetail &&
                                   caseDetail.client_details.filer_name
                                     .last_name) ||
                                   "N/A"}
@@ -174,7 +282,11 @@ const ViewFileProcesses = (props) => {
                               </small>
                               <br />
                               <small>
-                                <b>Whatsapp number: </b>N/A
+                                <b>Whatsapp number: </b>
+                                {(caseDetail.client_details.filer_name &&
+                                  caseDetail.client_details.filer_name
+                                    .phone_number) ||
+                                  "N/A"}
                               </small>
                               <br />
                               <small>
@@ -323,7 +435,16 @@ const ViewFileProcesses = (props) => {
                                 {(caseDetail.lawyerpp_cocounsil[0]
                                   .lawyerpp_cocounsil_id &&
                                   caseDetail.lawyerpp_cocounsil[0]
-                                    .lawyerpp_cocounsil_id.whatsapp_number) ||
+                                    .lawyerpp_cocounsil_id.phone_number) ||
+                                  "N/A"}
+                              </small>
+                              <br />
+                              <small>
+                                <b>Enrolment Number: </b>
+                                {(caseDetail.lawyerpp_cocounsil[0]
+                                  .lawyerpp_cocounsil_id &&
+                                  caseDetail.lawyerpp_cocounsil[0]
+                                    .lawyerpp_cocounsil_id.enrollment_number) ||
                                   "N/A"}
                               </small>
                               <br />
@@ -461,7 +582,7 @@ const ViewFileProcesses = (props) => {
                               </small>
                               <br />
                               <small>
-                                <b>Enrolment number: </b>
+                                <b>Enrolment Number: </b>
                                 {(caseDetail.opposing_lawyers[0]
                                   .opposing_lawyer_id &&
                                   caseDetail.opposing_lawyers[0]
@@ -502,7 +623,7 @@ const ViewFileProcesses = (props) => {
                               </small>
                               <br />
                               <small>
-                                <b>WhatsApp number: </b>
+                                <b>WhatsApp Number: </b>
                                 {(caseDetail.opposing_party[0]
                                   .opposing_party_Id &&
                                   caseDetail.opposing_party[0].opposing_party_Id
