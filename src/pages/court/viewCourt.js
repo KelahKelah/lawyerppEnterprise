@@ -122,7 +122,8 @@ const ViewCourt = (props) => {
             courts.map((court, i) => {
               return (
                 <tr
-                // className="c-pointer court-tr"
+                className="c-pointer court-tr"
+                       
                 // data-target={`#moreInfo${i}`}
                 // data-toggle="modal"
                 >
