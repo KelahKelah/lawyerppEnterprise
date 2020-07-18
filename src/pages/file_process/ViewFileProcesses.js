@@ -51,7 +51,7 @@ const ViewFileProcesses = (props) => {
             <th scope="col">Mode of commencement</th>
             <th scope="col">Amount (&#8358;)</th>
             <th scope="col">Lawyer</th>
-            <th scope="col"></th>
+            {/* <th scope="col"></th> */}
           </tr>
         </thead>
         <tbody>
@@ -91,7 +91,7 @@ const ViewFileProcesses = (props) => {
                       View assigned Lawyer
                     </button>
                   </td>
-                  <td>
+                  {/* <td>
                     <button
                       type="button"
                       className="btn btn-primary text-white"
@@ -103,7 +103,7 @@ const ViewFileProcesses = (props) => {
                     >
                       View Single file process
                     </button>
-                  </td>
+                  </td> */}
                 </tr>
               );
             })}
