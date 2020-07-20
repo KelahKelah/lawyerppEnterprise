@@ -59,6 +59,7 @@ const ViewSingleProcess = (props) => {
         <div className="row mx-0">
           <div className="col-11 mx-auto">
             <div className="staff_list row mx-0">
+              {/* responsive */}
               <div className="col-lg-4 col-md-6 col-sm-12 col-xs-12 border-left">
                 <b className="border-bottom border-dark">Client Details</b>
                 <br />
