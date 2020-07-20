@@ -46,7 +46,6 @@ const SingleProcessRoute = ({ Component, path, exact, purpose, auth, ...rest }) 
       {...rest}
       render={(props) =>
           <div>
-            <Navigation />
             <Component {...rest} {...props} />
           </div>
         

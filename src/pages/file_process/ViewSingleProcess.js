@@ -25,14 +25,14 @@ const ViewSingleProcess = (props) => {
     <Loader />
   ) : (
     <div>
-      <h1 className="text-center">Filed Process</h1>
+      <h1 className="text-center mt-5">Filed Process</h1>
       <div className="">
         <h6 className="mt-3 ml-5">
           <b>Mode of Commencement: </b>
           {Object.keys(caseDetail).length > 0 &&
             caseDetail.mode_of_commencement}
         </h6>
-        <h6 className="mb-3 ml-5">
+        <h6 className="ml-5">
           {Object.keys(caseDetail).length > 0 && caseDetail.amount ? (
             <div>
               <b>Amount: </b>
@@ -46,10 +46,21 @@ const ViewSingleProcess = (props) => {
             </div>
           )}
         </h6>
+        {caseDetail.processImageUrl != null ? (
+          <a
+            className="btn btn-primary btn-sm ml-5 mb-3"
+            href={`${caseDetail.processImageUrl}`}
+          >
+            View Certificate
+          </a>
+        ) : (
+          <b>No Certificate was uploaded</b>
+        )}
         <div className="row mx-0">
-          <div className="col-10 mx-auto">
+          <div className="col-11 mx-auto">
             <div className="staff_list row mx-0">
-              <div className="col-4 border-left">
+              {/* responsive */}
+              <div className="col-lg-4 col-md-6 col-sm-12 col-xs-12 border-left">
                 <b className="border-bottom border-dark">Client Details</b>
                 <br />
                 <small>
@@ -192,7 +203,7 @@ const ViewSingleProcess = (props) => {
                 <br />
                 <br />
               </div>
-              <div className="col-4 border-left">
+              <div className="col-lg-4 col-md-6 col-sm-12 col-xs-12 border-left">
                 <b className="border-bottom border-dark">Law Firm Details</b>
                 <br />
                 <small>
@@ -273,83 +284,56 @@ const ViewSingleProcess = (props) => {
                   Lawyerpp Opposing party
                 </b>
                 <br />
-                {Object.keys(caseDetail).length > 0 &&
-                caseDetail.lawyerpp_opposing_party[0].opposing_lawyer_id ==
-                  null ? (
-                  <small>
-                    <b>N/A</b>
-                  </small>
-                ) : (
-                  <div>
-                    <small>
-                      <b>Name: </b>
-                      {(Object.keys(caseDetail).length > 0 &&
-                        caseDetail.lawyerpp_opposing_party &&
-                        caseDetail.lawyerpp_opposing_party[0]
-                          .lawyerpp_opposing_party_Id &&
-                        caseDetail.lawyerpp_opposing_party[0]
-                          .lawyerpp_cocounsil_id.first_name +
-                          " " +
-                          caseDetail.lawyerpp_opposing_party[0]
-                            .lawyerpp_opposing_party_Id.last_name) ||
-                        "N/A"}
-                    </small>
-                    <br />
-                    <small>
-                      <b>Email address: </b>
-                      {(Object.keys(caseDetail).length > 0 &&
-                        caseDetail.lawyerpp_opposing_party[0]
-                          .lawyerpp_opposing_party_Id &&
-                        caseDetail.lawyerpp_opposing_party[0]
-                          .lawyerpp_opposing_party_Id.email_address) ||
-                        "N/A"}
-                    </small>
-                    <br />
-                    <small>
-                      <b>Phone Number: </b>
-                      {(Object.keys(caseDetail).length > 0 &&
-                        caseDetail.lawyerpp_opposing_party[0]
-                          .lawyerpp_opposing_party_Id &&
-                        caseDetail.lawyerpp_opposing_party[0]
-                          .lawyerpp_opposing_party_Id.phone_number) ||
-                        "N/A"}
-                    </small>
-                    <br />
-                    <small>
-                      <b>Facebook ID: </b>
-                      {(Object.keys(caseDetail).length > 0 &&
-                        caseDetail.lawyerpp_opposing_party[0]
-                          .lawyerpp_opposing_party_Id &&
-                        caseDetail.lawyerpp_opposing_party[0]
-                          .lawyerpp_opposing_party_Id.phone_number) ||
-                        "N/A"}
-                    </small>
-                    <br />
-                    <small>
-                      <b>WhatsApp number: </b>
-                      {(Object.keys(caseDetail).length > 0 &&
-                        caseDetail.lawyerpp_opposing_party[0]
-                          .lawyerpp_opposing_party_Id &&
-                        caseDetail.lawyerpp_opposing_party[0]
-                          .lawyerpp_opposing_party_Id.whatsapp_number) ||
-                        "N/A"}
-                    </small>
-                    <br />
-                    <small>
-                      <b>Office Address: </b>
-                      {(Object.keys(caseDetail).length > 0 &&
-                        caseDetail.lawyerpp_opposing_party[0]
-                          .lawyerpp_opposing_party_Id &&
-                        caseDetail.lawyerpp_opposing_party[0]
-                          .lawyerpp_opposing_party_Id.office_address) ||
-                        "N/A"}
-                    </small>
-                    <br />
-                    <br />
-                  </div>
-                )}
+                <small>
+                  <b>Name: </b>
+                  {caseDetail.cocounsil &&
+                  Array.isArray(caseDetail.lawyerpp_opposing_party) &&
+                  caseDetail.lawyerpp_opposing_party[0]
+                    .lawyerpp_opposing_party_Id
+                    ? caseDetail.lawyerpp_opposing_party[0]
+                        .lawyerpp_opposing_party_Id.first_name +
+                      " " +
+                      caseDetail.lawyerpp_opposing_party[0]
+                        .lawyerpp_opposing_party_Id.last_name
+                    : "N/A"}
+                </small>
+                <br />
+                <small>
+                  <b>Email address: </b>
+                  {caseDetail.cocounsil &&
+                  Array.isArray(caseDetail.lawyerpp_opposing_party) &&
+                  caseDetail.lawyerpp_opposing_party[0]
+                    .lawyerpp_opposing_party_Id
+                    ? caseDetail.lawyerpp_opposing_party[0]
+                        .lawyerpp_opposing_party_Id.email_address
+                    : "N/A"}
+                </small>
+                <br />
+                <small>
+                  <b>Phone Number: </b>
+                  {caseDetail.cocounsil &&
+                  Array.isArray(caseDetail.lawyerpp_opposing_party) &&
+                  caseDetail.lawyerpp_opposing_party[0]
+                    .lawyerpp_opposing_party_Id
+                    ? caseDetail.lawyerpp_opposing_party[0]
+                        .lawyerpp_opposing_party_Id.phone_number
+                    : "N/A"}
+                </small>
+                <br />
+                <small>
+                  <b>Enrolment Number: </b>
+                  {caseDetail.cocounsil &&
+                  Array.isArray(caseDetail.lawyerpp_opposing_party) &&
+                  caseDetail.lawyerpp_opposing_party[0]
+                    .lawyerpp_opposing_party_Id
+                    ? caseDetail.lawyerpp_opposing_party[0]
+                        .lawyerpp_opposing_party_Id.enrollment_number
+                    : "N/A"}
+                </small>
+                <br />
+                <br />
               </div>
-              <div className="col-4 border-left">
+              <div className="col-lg-4 col-md-6 col-sm-12 col-xs-12 border-left">
                 <b className="border-bottom border-dark">Opposing Lawyer</b>
                 <br />
                 <small>
