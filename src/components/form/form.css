@@ -3,7 +3,8 @@ width: 100%;
 font-family: 'Poppins', sans-serif;
 }
 .form-content {
-    width: 50%;
+    width: 40%;
+    padding: 2%;
     background-color: #fff;
     margin: auto;
     border-radius: 5px,5px,5px ;

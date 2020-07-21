@@ -41,7 +41,6 @@ const Form = (props) => {
       });
   };
   useEffect(() => {
-    // Calling all clients endpiot
 
     axios
       .get(clientUrl)
@@ -50,7 +49,6 @@ const Form = (props) => {
           console.log("client", res.data.data);
 
           setClientData(res.data.data);
-          // setInputs({ ...inputs, client_id: res.data.data[0]._id });
         }
       })
       .catch((error) => {});
@@ -59,41 +57,14 @@ const Form = (props) => {
       .then((res) => {
         if (res.status === 200) {
           console.log("lawyer", res.data.data);
-
           setLawyerData(res.data.data);
-          // setInputs({ ...inputs, judge_id: res.data.data[0]._id });
         }
       })
       .catch((error) => {
         console.error(error);
       });
 
-    // Calling all lawyers endpoint
   }, []);
-
-  // const getAllClientData = () => {
-  //   if (clientData.allClientData.length > 0) {
-  //     return clientData.allClientData.map((singleClientData, i) => {
-  //       return (
-  //         <option value={singleClientData._id}>
-  //           {singleClientData.first_name + " " + singleClientData.last_name}
-  //         </option>
-  //       );
-  //     });
-  //   }
-  // };
-
-  // const getAllLawyerData = () => {
-  //   if (lawyerData.allLawyerData.length > 0) {
-  //     return lawyerData.allLawyerData.map((singleLawyerData, i) => {
-  //       return (
-  //         <option value={singleLawyerData._id}>
-  //           {singleLawyerData.first_name + " " + singleLawyerData.last_name}
-  //         </option>
-  //       );
-  //     });
-  //   }
-  // };
 
   return success ? (
     <Success
@@ -108,7 +79,7 @@ const Form = (props) => {
         <div className="form-content mt-0">
           <div className="iq-card-body px-3 py-2">
             <h2 className="d-flex justify-content-center border-bottom mb-5">
-              Fill the form below to create a court
+              Create a Court
             </h2>
             <form onSubmit={handleSubmits}>
               <div className="form-group">
@@ -156,7 +127,6 @@ const Form = (props) => {
                         {lawyer.first_name + " " + lawyer.last_name}
                       </option>
                     ))}
-                  {/* {getAllLawyerData()} */}
                 </select>
               </div>
 
@@ -194,15 +164,6 @@ const Form = (props) => {
                 </select>
               </div>
               <div className="form-group">
-                {/* <label htmlFor="exampleInputtime">
-                   Judge administrative right
-                 </label>
-                 <input
-                   type="text"
-                   className="form-control"
-                   name="judge_administrative_right"
-                   onChange={handleInputs}
-                 /> */}
                 <label htmlFor="exampleInputdatetime">
                   Judge Assignment or Administrative Rights
                 </label>
@@ -243,7 +204,6 @@ const Form = (props) => {
                         {client.first_name + " " + client.last_name}
                       </option>
                     ))}
-                  {/* {getAllClientData()} */}
                 </select>
               </div>
 
@@ -260,7 +220,7 @@ const Form = (props) => {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="exampleInputdatetime">Staff role</label>
+                <label htmlFor="exampleInputdatetime">Staff Role</label>
                 <select
                   class="form-control"
                   name="staff_role"
@@ -300,7 +260,7 @@ const Form = (props) => {
                 />
               </div>
               <div className="text-right">
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn btn-primary btn-block">
                   Submit
                 </button>
               </div>
