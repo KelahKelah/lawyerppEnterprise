@@ -528,7 +528,7 @@ const FillFileProcess = (props) => {
                     </div>
                     <div class="form-group">
                       <label for="exampleFormControlFile1">
-                        Upload certificate
+                        Upload process document
                       </label>
                       <input
                         type="file"
