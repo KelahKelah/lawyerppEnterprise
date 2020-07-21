@@ -6,7 +6,7 @@ import Loader from "../../components/pageLoader/loader";
 import Success from "../../components/success/success";
 
 const JudgeCases = (props) => {
-  const lawfirms = `/fileprocess/payed_processes?courtId=${props.match.params.id}`;
+  const courtUrl = `/fileprocess/payed_processes?courtId=${props.match.params.id}`;
   const [cases, setCases] = useState([]);
   const [lawyers, setLawyers] = useState([]);
   const [data, setdata] = useState({
@@ -19,10 +19,11 @@ const JudgeCases = (props) => {
 
   useEffect(() => {
     axios
-      .get(lawfirms)
+      .get(courtUrl)
       .then((result) => {
         setIsLoading(false);
         if (result.status === 200) {
+          console.log(result.data.data);
           setCases(result.data.data);
         }
       })
@@ -101,9 +102,8 @@ const JudgeCases = (props) => {
             <th scope="col">#</th>
             <th scope="col">Client name</th>
             <th scope="col">Mode of Commencement</th>
-            <th scope="col">Opposing Party</th>
             <th scope="col">Opposing Lawyer</th>
-            <th></th>
+            <th scope="col">Process Document</th>
           </tr>
         </thead>
         <tbody>
@@ -131,11 +131,6 @@ const JudgeCases = (props) => {
                   </td>
                   <td>{singleCase.mode_of_commencement}</td>
                   <td>
-                    {singleCase.opposing_party[0].opposing_party_Id &&
-                      singleCase.opposing_party[0].opposing_party_Id
-                        .opposing_name}
-                  </td>
-                  <td>
                     {singleCase.opposing_lawyers[0].opposing_lawyer_id &&
                       singleCase.opposing_lawyers[0].opposing_lawyer_id
                         .first_name +
@@ -146,11 +141,11 @@ const JudgeCases = (props) => {
                   <td>
                     {singleCase.processImageUrl !== "" ? (
                       <a
-                        className="btn btn-primary text-white"
+                        className="btn btn-primary btn-block text-white"
                         href={`${singleCase.processImageUrl}`}
                         target="_blank"
                       >
-                        file
+                        View document
                       </a>
                     ) : (
                       "no file"
@@ -584,6 +579,19 @@ const JudgeCases = (props) => {
                                     .opposing_office_address}
                               </small>
                               <br />
+                              <br />
+                              <b>Process Document: </b>
+                              {caseDetail.processImageUrl !== "" ? (
+                                <a
+                                  className="btn btn-primary btn-sm text-white"
+                                  href={`${caseDetail.processImageUrl}`}
+                                  target="_blank"
+                                >
+                                  View document
+                                </a>
+                              ) : (
+                                "no file"
+                              )}
                             </div>
                           </div>
                         </div>
