@@ -155,10 +155,11 @@ const FillFileProcess = (props) => {
       <section className="sign-in-page bg-white align-process">
         <div className="align-self-center">
           <div className="sign-in-from">
-            <h1>File a Process</h1>
+            <h2 className="text-center border-bottom">File a Process</h2>
             <form className="mt-4" onSubmit={handleSubmit}>
-              <div className="form-row">
+              <div className="row mx-0">
                 <div className="col-sm-6">
+                  <section>
                   <div className="form-group">
                     <label for="exampleInputEmail1">Mode of commencement</label>
                     <select
@@ -367,6 +368,7 @@ const FillFileProcess = (props) => {
                       </div>
                     ) : null}
                   </div>
+                  </section>
                 </div>
                 <div className="col-sm-6">
                   <div className="opposing-party">
@@ -543,7 +545,7 @@ const FillFileProcess = (props) => {
                         type="submit"
                         class="btn btn-primary btn-lg btn-block col-11 mr-1"
                       >
-                        Create a Process
+                        File Process
                       </button>
                       {loadStata === "isLoading" ? <Loader /> : null}
                     </div>
