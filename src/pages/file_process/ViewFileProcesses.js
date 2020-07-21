@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Loader from "../../components/pageLoader/loader";
+import { Link } from "react-router-dom";
 
 const ViewFileProcesses = (props) => {
   const [allFileProcesses, setAllFileProcesses] = useState([]);
@@ -13,6 +14,7 @@ const ViewFileProcesses = (props) => {
     axios
       .get(viewFileProcessesUrl)
       .then((res) => {
+        console.log(res.data.data);
         setIsLoading(false);
         setAllFileProcesses(res.data.data);
         setDisabled(false);
@@ -42,6 +44,11 @@ const ViewFileProcesses = (props) => {
 
   return isLoading ? (
     <Loader />
+  ) : allFileProcesses.length == 0 ? (
+    <h1 className="text-center">
+      You have not filed a process yet, <br /> Click{" "}
+      <Link to="/process/fill">here</Link> to file a process
+    </h1>
   ) : (
     <div className="container mt-4">
       <table className="table">
@@ -255,14 +262,14 @@ const ViewFileProcesses = (props) => {
                               <br />
                               <small>
                                 <b>Client name: </b>
-                                {(caseDetail &&
+                                {`${
+                                  caseDetail.client_details.filer_name &&
                                   caseDetail.client_details.filer_name
-                                    .first_name +
-                                    " " +
-                                    caseDetail &&
-                                  caseDetail.client_details.filer_name
-                                    .last_name) ||
-                                  "N/A"}
+                                    .first_name
+                                } ${
+                                  caseDetail.client_details.filer_name &&
+                                  caseDetail.client_details.filer_name.last_name
+                                }`}
                               </small>
                               <br />
                               <small>
@@ -472,7 +479,7 @@ const ViewFileProcesses = (props) => {
                               </b>
                               <br />
                               {caseDetail.lawyerpp_opposing_party[0]
-                                .opposing_lawyer_id == null ? (
+                                .lawyerpp_opposing_party_Id == null ? (
                                 <small>
                                   <b>N/A</b>
                                 </small>
@@ -484,7 +491,7 @@ const ViewFileProcesses = (props) => {
                                       caseDetail.lawyerpp_opposing_party[0]
                                         .lawyerpp_opposing_party_Id &&
                                       caseDetail.lawyerpp_opposing_party[0]
-                                        .lawyerpp_cocounsil_id.first_name +
+                                        .lawyerpp_opposing_party_Id.first_name +
                                         " " +
                                         caseDetail.lawyerpp_opposing_party[0]
                                           .lawyerpp_opposing_party_Id
@@ -649,6 +656,19 @@ const ViewFileProcesses = (props) => {
                                   "N/A"}
                               </small>
                               <br />
+                              <br />
+                              <b>Process Document: </b>
+                              {caseDetail.processImageUrl !== "" ? (
+                                <a
+                                  className="btn btn-primary btn-sm text-white"
+                                  href={`${caseDetail.processImageUrl}`}
+                                  target="_blank"
+                                >
+                                  View document
+                                </a>
+                              ) : (
+                                "no file"
+                              )}
                             </div>
                           </div>
                         </div>

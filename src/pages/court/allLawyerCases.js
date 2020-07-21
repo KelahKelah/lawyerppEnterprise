@@ -95,7 +95,7 @@ const LawyerCases = (props) => {
             <th scope="col">Mode of Commencement</th>
             <th scope="col">Opposing Party</th>
             <th scope="col">Opposing Lawyer</th>
-            <th></th>
+            <th scope="col">Process Document</th>
           </tr>
         </thead>
         <tbody>
@@ -133,11 +133,11 @@ const LawyerCases = (props) => {
                   <td>
                     {singleCase.processImageUrl !== "" ? (
                       <a
-                        className="btn btn-primary text-white"
+                        className="btn btn-primary btn-block text-white"
                         href={`${singleCase.processImageUrl}`}
                         target="_blank"
                       >
-                        file
+                        View document
                       </a>
                     ) : (
                       "no file"
@@ -175,7 +175,7 @@ const LawyerCases = (props) => {
                       </button>
                     </div>
                     <div className="modal-body">
-                      <h5 className="mt-3">
+                      <h5 className="mb-4">
                         <b>Mode of Commencement: </b>
                         {caseDetail.mode_of_commencement}
                       </h5>
@@ -189,13 +189,14 @@ const LawyerCases = (props) => {
                               <br />
                               <small>
                                 <b>Client name: </b>
-                                {caseDetail.client_details.filer_name &&
+                                {`${
+                                  caseDetail.client_details.filer_name &&
                                   caseDetail.client_details.filer_name
-                                    .first_name +
-                                    " " +
-                                    caseDetail.client_details.filer_name &&
-                                  caseDetail.client_details.filer_name
-                                    .last_name}
+                                    .first_name
+                                } ${
+                                  caseDetail.client_details.filer_name &&
+                                  caseDetail.client_details.filer_name.last_name
+                                }`}
                               </small>
                               <br />
                               <small>
@@ -526,6 +527,19 @@ const LawyerCases = (props) => {
                                     .opposing_office_address}
                               </small>
                               <br />
+                              <br />
+                              <b>Process Document: </b>
+                              {caseDetail.processImageUrl !== "" ? (
+                                <a
+                                  className="btn btn-primary btn-sm text-white"
+                                  href={`${caseDetail.processImageUrl}`}
+                                  target="_blank"
+                                >
+                                  View document
+                                </a>
+                              ) : (
+                                "no file"
+                              )}
                             </div>
                           </div>
                         </div>
