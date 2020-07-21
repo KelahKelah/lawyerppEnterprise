@@ -30,7 +30,7 @@ const LawyerCases = (props) => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.message);
         if (error.message === "Request failed with status code 404") {
           seterror("404");
         }
