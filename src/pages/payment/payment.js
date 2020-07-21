@@ -22,6 +22,7 @@ const Payment = (props) => {
       .then((res) => {
         setIsLoading(false);
         setcostedProcesses(res.data.data);
+        console.log(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -35,12 +36,12 @@ const Payment = (props) => {
     e.preventDefault();
     console.log(data);
     axios
-    .post(`/fileprocess/filer_payment?processId=${data}`)
-    .then((response) => {
-      console.log(response);
-      if (response.status == 200) {
-        let $ = window.$;
-        $(".modal-backdrop").remove();
+      .post(`/fileprocess/filer_payment?processId=${data}`)
+      .then((response) => {
+        console.log(response);
+        if (response.status == 200) {
+          let $ = window.$;
+          $(".modal-backdrop").remove();
           setSuccess(true);
         }
       })
@@ -63,11 +64,10 @@ const Payment = (props) => {
     />
   ) : isLoading ? (
     <Loader />
+  ) : costedProcesses.length == 0 ? (
+    <h1 className="text-center">Nothing to see here</h1>
   ) : (
     <div className="container mt-4">
-      <h3 className="text-center">
-        This is a list of approved processes available for you to pay
-      </h3>
       <table className="table">
         <thead className="thead-dark">
           <tr>
@@ -160,14 +160,15 @@ const Payment = (props) => {
                               <br />
                               <small>
                                 <b>Client name: </b>
-                                {(costedProcess.client_details.filer_name &&
+                                {`${
+                                  costedProcess.client_details.filer_name &&
                                   costedProcess.client_details.filer_name
-                                    .first_name +
-                                    " " +
-                                    costedProcess.client_details.filer_name &&
+                                    .first_name
+                                } ${
+                                  costedProcess.client_details.filer_name &&
                                   costedProcess.client_details.filer_name
-                                    .last_name) ||
-                                  "N/A"}
+                                    .last_name
+                                }`}
                               </small>
                               <br />
                               <small>
@@ -378,7 +379,7 @@ const Payment = (props) => {
                               </b>
                               <br />
                               {costedProcess.lawyerpp_opposing_party[0]
-                                .opposing_lawyer_id == null ? (
+                                .lawyerpp_opposing_party_Id == null ? (
                                 <small>
                                   <b>N/A</b>
                                 </small>
@@ -390,7 +391,7 @@ const Payment = (props) => {
                                       costedProcess.lawyerpp_opposing_party[0]
                                         .lawyerpp_opposing_party_Id &&
                                       costedProcess.lawyerpp_opposing_party[0]
-                                        .lawyerpp_cocounsil_id.first_name +
+                                        .lawyerpp_opposing_party_Id.first_name +
                                         " " +
                                         costedProcess.lawyerpp_opposing_party[0]
                                           .lawyerpp_opposing_party_Id
@@ -419,7 +420,7 @@ const Payment = (props) => {
                                   </small>
                                   <br />
                                   <small>
-                                    <b>Facebook ID: </b>
+                                    <b>WhatsApp number: </b>
                                     {(costedProcess.lawyerpp_opposing_party[0]
                                       .lawyerpp_opposing_party_Id &&
                                       costedProcess.lawyerpp_opposing_party[0]
@@ -429,12 +430,12 @@ const Payment = (props) => {
                                   </small>
                                   <br />
                                   <small>
-                                    <b>WhatsApp number: </b>
+                                    <b>Facebook ID: </b>
                                     {(costedProcess.lawyerpp_opposing_party[0]
                                       .lawyerpp_opposing_party_Id &&
                                       costedProcess.lawyerpp_opposing_party[0]
                                         .lawyerpp_opposing_party_Id
-                                        .whatsapp_number) ||
+                                        .facebook_id) ||
                                       "N/A"}
                                   </small>
                                   <br />
@@ -557,6 +558,19 @@ const Payment = (props) => {
                                   "N/A"}
                               </small>
                               <br />
+                              <br />
+                              <b>Process Document: </b>
+                              {costedProcess.processImageUrl !== "" ? (
+                                <a
+                                  className="btn btn-primary btn-sm text-white"
+                                  href={`${costedProcess.processImageUrl}`}
+                                  target="_blank"
+                                >
+                                  View document
+                                </a>
+                              ) : (
+                                "no file"
+                              )}
                             </div>
                           </div>
                         </div>
