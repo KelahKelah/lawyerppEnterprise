@@ -13,6 +13,7 @@ const ViewFileProcesses = (props) => {
     axios
       .get(viewFileProcessesUrl)
       .then((res) => {
+        console.log(res.data.data);
         setIsLoading(false);
         setAllFileProcesses(res.data.data);
         setDisabled(false);
@@ -472,7 +473,7 @@ const ViewFileProcesses = (props) => {
                               </b>
                               <br />
                               {caseDetail.lawyerpp_opposing_party[0]
-                                .opposing_lawyer_id == null ? (
+                                .lawyerpp_opposing_party_Id == null ? (
                                 <small>
                                   <b>N/A</b>
                                 </small>
@@ -484,7 +485,7 @@ const ViewFileProcesses = (props) => {
                                       caseDetail.lawyerpp_opposing_party[0]
                                         .lawyerpp_opposing_party_Id &&
                                       caseDetail.lawyerpp_opposing_party[0]
-                                        .lawyerpp_cocounsil_id.first_name +
+                                        .lawyerpp_opposing_party_Id.first_name +
                                         " " +
                                         caseDetail.lawyerpp_opposing_party[0]
                                           .lawyerpp_opposing_party_Id

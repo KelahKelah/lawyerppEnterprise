@@ -175,7 +175,7 @@ const LawyerCases = (props) => {
                       </button>
                     </div>
                     <div className="modal-body">
-                      <h5 className="mt-3">
+                      <h5 className="mb-4">
                         <b>Mode of Commencement: </b>
                         {caseDetail.mode_of_commencement}
                       </h5>
@@ -189,13 +189,14 @@ const LawyerCases = (props) => {
                               <br />
                               <small>
                                 <b>Client name: </b>
-                                {caseDetail.client_details.filer_name &&
+                                {`${
+                                  caseDetail.client_details.filer_name &&
                                   caseDetail.client_details.filer_name
-                                    .first_name +
-                                    " " +
-                                    caseDetail.client_details.filer_name &&
-                                  caseDetail.client_details.filer_name
-                                    .last_name}
+                                    .first_name
+                                } ${
+                                  caseDetail.client_details.filer_name &&
+                                  caseDetail.client_details.filer_name.last_name
+                                }`}
                               </small>
                               <br />
                               <small>

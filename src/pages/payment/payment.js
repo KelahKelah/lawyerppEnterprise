@@ -22,6 +22,7 @@ const Payment = (props) => {
       .then((res) => {
         setIsLoading(false);
         setcostedProcesses(res.data.data);
+        console.log(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -378,7 +379,7 @@ const Payment = (props) => {
                               </b>
                               <br />
                               {costedProcess.lawyerpp_opposing_party[0]
-                                .opposing_lawyer_id == null ? (
+                                .lawyerpp_opposing_party_Id == null ? (
                                 <small>
                                   <b>N/A</b>
                                 </small>
@@ -390,7 +391,7 @@ const Payment = (props) => {
                                       costedProcess.lawyerpp_opposing_party[0]
                                         .lawyerpp_opposing_party_Id &&
                                       costedProcess.lawyerpp_opposing_party[0]
-                                        .lawyerpp_cocounsil_id.first_name +
+                                        .lawyerpp_opposing_party_Id.first_name +
                                         " " +
                                         costedProcess.lawyerpp_opposing_party[0]
                                           .lawyerpp_opposing_party_Id
@@ -419,7 +420,7 @@ const Payment = (props) => {
                                   </small>
                                   <br />
                                   <small>
-                                    <b>Facebook ID: </b>
+                                    <b>WhatsApp number: </b>
                                     {(costedProcess.lawyerpp_opposing_party[0]
                                       .lawyerpp_opposing_party_Id &&
                                       costedProcess.lawyerpp_opposing_party[0]
@@ -429,12 +430,12 @@ const Payment = (props) => {
                                   </small>
                                   <br />
                                   <small>
-                                    <b>WhatsApp number: </b>
+                                    <b>Facebook ID: </b>
                                     {(costedProcess.lawyerpp_opposing_party[0]
                                       .lawyerpp_opposing_party_Id &&
                                       costedProcess.lawyerpp_opposing_party[0]
                                         .lawyerpp_opposing_party_Id
-                                        .whatsapp_number) ||
+                                        .facebook_id) ||
                                       "N/A"}
                                   </small>
                                   <br />

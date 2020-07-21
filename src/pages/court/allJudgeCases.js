@@ -120,11 +120,14 @@ const JudgeCases = (props) => {
                 >
                   <th scope="row">{i + 1}</th>
                   <td>
-                    {singleCase.client_details.filer_name &&
-                      singleCase.client_details.filer_name.first_name +
-                        " " +
-                        singleCase.client_details.filer_name &&
-                      singleCase.client_details.filer_name.last_name}
+                    {`${
+                      singleCase.client_details.filer_name &&
+                      singleCase.client_details.filer_name.first_name
+                    } ${
+                      singleCase.client_details.filer_name &&
+                      singleCase.client_details.filer_name.last_name
+                    }
+                    `}
                   </td>
                   <td>{singleCase.mode_of_commencement}</td>
                   <td>
@@ -234,13 +237,15 @@ const JudgeCases = (props) => {
                               <br />
                               <small>
                                 <b>Client name: </b>
-                                {caseDetail.client_details.filer_name &&
+                                {`${
+                                  caseDetail.client_details.filer_name &&
                                   caseDetail.client_details.filer_name
-                                    .first_name +
-                                    " " +
-                                    caseDetail.client_details.filer_name &&
-                                  caseDetail.client_details.filer_name
-                                    .last_name}
+                                    .first_name
+                                } ${
+                                  caseDetail.client_details.filer_name &&
+                                  caseDetail.client_details.filer_name.last_name
+                                }
+                                `}
                               </small>
                               <br />
                               <small>

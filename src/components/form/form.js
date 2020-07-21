@@ -229,7 +229,7 @@ const Form = (props) => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="">Client</label>
+                <label htmlFor="">Court Staff</label>
                 <select
                   className="form-control"
                   name="court_staff_id"

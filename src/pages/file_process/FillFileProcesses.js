@@ -80,6 +80,7 @@ const FillFileProcess = (props) => {
     axios
       .get("https://lawyerppserver.herokuapp.com/api/lawfirm/lawfirms")
       .then((res) => {
+        console.log(res.data.data);
         setlawFirms(res.data.data);
       })
       .catch((error) => {

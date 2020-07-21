@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import moduleName from "../../components/pageLoader/loader";
 import Loader from "../../components/pageLoader/loader";
 
 const ViewSingleProcess = (props) => {
@@ -51,7 +50,7 @@ const ViewSingleProcess = (props) => {
             className="btn btn-primary btn-sm ml-5 mb-3"
             href={`${caseDetail.processImageUrl}`}
           >
-            View Certificate
+            View Process document
           </a>
         ) : (
           <b>No Certificate was uploaded</b>
@@ -59,7 +58,6 @@ const ViewSingleProcess = (props) => {
         <div className="row mx-0">
           <div className="col-11 mx-auto">
             <div className="staff_list row mx-0">
-              {/* responsive */}
               <div className="col-lg-4 col-md-6 col-sm-12 col-xs-12 border-left">
                 <b className="border-bottom border-dark">Client Details</b>
                 <br />
