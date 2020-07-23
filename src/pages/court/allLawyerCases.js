@@ -229,7 +229,7 @@ const LawyerCases = (props) => {
                               <br />
                               <br />
                               <b className="border-bottom border-dark">
-                                Co-counsil
+                                Co-counsel
                               </b>
                               <br />
                               <small>
@@ -316,7 +316,7 @@ const LawyerCases = (props) => {
                               <br />
                               <br />
                               <b className="border-bottom border-dark">
-                                Lawyerpp Co-counsil
+                                Lawyerpp Co-counsel
                               </b>
                               <br />
                               <small>

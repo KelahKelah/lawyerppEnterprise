@@ -105,7 +105,7 @@ const ViewSingleProcess = (props) => {
                 </small>
                 <br />
                 <br />
-                <b className="border-bottom border-dark">Co-counsil</b>
+                <b className="border-bottom border-dark">Co-counsel</b>
                 <br />
                 <small>
                   <b>Client name: </b>
@@ -209,7 +209,7 @@ const ViewSingleProcess = (props) => {
                 </small>
                 <br />
                 <br />
-                <b className="border-bottom border-dark">Lawyerpp Co-counsil</b>
+                <b className="border-bottom border-dark">Lawyerpp Co-counsel</b>
                 <br />
                 <small>
                   <b>Name: </b>
