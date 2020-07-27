@@ -30,7 +30,7 @@ const LawyerCases = (props) => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.message);
         if (error.message === "Request failed with status code 404") {
           seterror("404");
         }
@@ -68,20 +68,20 @@ const LawyerCases = (props) => {
     <Success
       type="costed"
       message="You have successfully costed this process"
-      link="/lawfirms"
+      link="/process/cost"
       direction="other processes"
     />
   ) : error == "404" ? (
     <Error
       message="404"
       advice="You are not designated to this court"
-      link="/lawfirms"
+      link="/process/cost"
     />
   ) : error == "401" ? (
     <Error
       message="401"
       advice="You are not approved to perform this action"
-      link="/lawfirms"
+      link="/process/cost"
     />
   ) : isLoading ? (
     <Loader />

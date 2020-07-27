@@ -10,7 +10,7 @@ import ViewFileProcesses from "./pages/file_process/ViewFileProcesses";
 import Payment from "./pages/payment/payment";
 import Login from "./pages/login/login";
 import LawyerCases from "./pages/court/allLawyerCases";
-import Lawfirms from "./pages/court/lawfirms";
+import CostProcess from "./pages/court/costProcess";
 import CourtsForJudge from "./pages/court/courtsForJudge";
 import JudgeCase from "./pages/court/allJudgeCases";
 import CreateOrgainization from "./pages/court/createOrganization";
@@ -64,8 +64,8 @@ const Routes = () => {
           <MainRoute exact path="/home" Component={Home} />
           <MainRoute exact path="/create/Court" Component={Court} />
           <MainRoute exact path="/courts" Component={ViewCourt} />
-          <MainRoute exact path="/lawfirms" Component={Lawfirms} />
-          <MainRoute exact path="/lawfirms/:id" Component={LawyerCases} />
+          <MainRoute exact path="/process/cost" Component={CostProcess} />
+          <MainRoute exact path="/process/cost/:id" Component={LawyerCases} />
           <MainRoute exact path="/court" Component={CourtFile} />
           <MainRoute exact path="/process/fill" Component={FillFileProcesses} />
           <MainRoute exact path="/process/view" Component={ViewFileProcesses} />
