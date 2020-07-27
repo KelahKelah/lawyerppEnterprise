@@ -35,7 +35,7 @@ const Navigation = (props) => {
             <Link className="dropdown-item" to="/courts">
               View Courts
             </Link>
-            <Link className="dropdown-item" to="/lawfirms">
+            <Link className="dropdown-item" to="/process/cost">
               Cost Process
             </Link>
             <Link className="dropdown-item" to="/assign/lawyer">

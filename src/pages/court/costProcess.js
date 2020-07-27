@@ -3,7 +3,7 @@ import axios from "axios";
 import "./court.css";
 import Loader from "../../components/pageLoader/loader";
 
-const LawFirms = (props) => {
+const CostProcess = (props) => {
   const courtUrl = "/court/courts";
   const [courts, setCourts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -26,7 +26,7 @@ const LawFirms = (props) => {
   }, []);
 
   const handleClick = (court) => {
-    props.history.push(`/lawfirms/${court._id}`);
+    props.history.push(`/process/cost/${court._id}`);
   };
 
   return isLoading ? (
@@ -66,4 +66,4 @@ const LawFirms = (props) => {
   );
 };
 
-export default LawFirms;
+export default CostProcess;
