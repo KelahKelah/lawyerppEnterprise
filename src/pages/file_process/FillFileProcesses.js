@@ -164,7 +164,7 @@ const FillFileProcess = (props) => {
                     <label for="exampleInputEmail1">Mode of commencement</label>
                     <select
                       id="inputState"
-                      class="form-control"
+                      className="form-control"
                       name="mode_of_commencement"
                       onChange={handleChange}
                     >
@@ -181,7 +181,7 @@ const FillFileProcess = (props) => {
                     </label>
                     <select
                       id="inputState"
-                      class="form-control"
+                      className="form-control"
                       value={filer}
                       name="filing_as"
                       onChange={toggleSetFiler}
@@ -196,7 +196,7 @@ const FillFileProcess = (props) => {
                       <label for="exampleInputEmail1">Client</label>
                       <select
                         id="inputState"
-                        class="form-control"
+                        className="form-control"
                         name="clientname"
                         onChange={handleChange}
                       >
@@ -216,7 +216,7 @@ const FillFileProcess = (props) => {
                         <label for="exampleInputEmail1">Lawyer Names</label>
                         <select
                           id="inputState"
-                          class="form-control"
+                          className="form-control"
                           name="lawyerId"
                           onChange={handleChange}
                         >
@@ -234,7 +234,7 @@ const FillFileProcess = (props) => {
                         <label for="exampleInputEmail1">Law firms</label>
                         <select
                           id="inputState"
-                          class="form-control"
+                          className="form-control"
                           name="lawfirmId"
                           onChange={handleChange}
                         >
@@ -255,7 +255,7 @@ const FillFileProcess = (props) => {
                       <label for="exampleInputEmail1">Select a counsel</label>
                       <select
                         id="inputState"
-                        class="form-control"
+                        className="form-control"
                         name="lawyerpp_cocounsil"
                         onChange={handleChange}
                         disabled={counsel ? true : false}
@@ -353,12 +353,12 @@ const FillFileProcess = (props) => {
                             />
                           </div>
                         </div>
-                        <div class="form-group">
+                        <div className="form-group">
                           <label for="exampleFormControlTextarea1">
                             Office Address
                           </label>
                           <textarea
-                            class="form-control"
+                            className="form-control"
                             id="exampleFormControlTextarea1"
                             rows="3"
                             name="office_address"
@@ -378,7 +378,7 @@ const FillFileProcess = (props) => {
                       </label>
                       <select
                         id="inputState"
-                        class="form-control"
+                        className="form-control"
                         disabled={party ? true : false}
                         onChange={handleChange}
                         name="opposing_party"
@@ -476,12 +476,12 @@ const FillFileProcess = (props) => {
                             />
                           </div>
                         </div>
-                        <div class="form-group">
+                        <div className="form-group">
                           <label for="exampleFormControlTextarea1">
                             Office Address
                           </label>
                           <textarea
-                            class="form-control"
+                            className="form-control"
                             id="exampleFormControlTextarea1"
                             rows="3"
                             name="opposing_office_address"
@@ -496,7 +496,7 @@ const FillFileProcess = (props) => {
                       </label>
                       <select
                         id="inputState"
-                        class="form-control"
+                        className="form-control"
                         name="opposing_lawyer"
                         onChange={handleChange}
                       >
@@ -514,7 +514,7 @@ const FillFileProcess = (props) => {
                       <label for="exampleInputEmail1">Select a Court</label>
                       <select
                         id="inputState"
-                        class="form-control"
+                        className="form-control"
                         name="courtId"
                         onChange={handleChange}
                       >
@@ -528,7 +528,7 @@ const FillFileProcess = (props) => {
                           ))}
                       </select>
                     </div>
-                    <div class="form-group">
+                    <div className="form-group">
                       <label for="exampleFormControlFile1">
                         Upload process document
                       </label>
@@ -543,7 +543,7 @@ const FillFileProcess = (props) => {
                     <div className="row ml-3">
                       <button
                         type="submit"
-                        class="btn btn-primary btn-lg btn-block col-11 mr-1"
+                        className="btn btn-primary btn-lg btn-block col-11 mr-1"
                       >
                         File Process
                       </button>

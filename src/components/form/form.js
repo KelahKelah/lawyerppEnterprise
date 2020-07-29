@@ -145,7 +145,7 @@ const Form = (props) => {
               <div className="form-group">
                 <label htmlFor="exampleInputPassword3">Judge role</label>
                 <select
-                  class="form-control"
+                  className="form-control"
                   name="judge_role"
                   onChange={handleInputs}
                 >
@@ -168,7 +168,7 @@ const Form = (props) => {
                   Judge Assignment or Administrative Rights
                 </label>
                 <select
-                  class="form-control"
+                  className="form-control"
                   name="judge_administrative_right"
                   onChange={handleInputs}
                 >
@@ -222,7 +222,7 @@ const Form = (props) => {
               <div className="form-group">
                 <label htmlFor="exampleInputdatetime">Staff Role</label>
                 <select
-                  class="form-control"
+                  className="form-control"
                   name="staff_role"
                   onChange={handleInputs}
                 >
@@ -238,7 +238,7 @@ const Form = (props) => {
                   Staff Assignment or Administrative Rights
                 </label>
                 <select
-                  class="form-control"
+                  className="form-control"
                   name="staff_administrative_right"
                   onChange={handleInputs}
                 >
