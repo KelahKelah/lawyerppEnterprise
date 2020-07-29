@@ -318,29 +318,29 @@ const ViewCourt = (props) => {
       <section>
         {/* <!-- Modal --> */}
         <div
-          class="modal fade"
+          className="modal fade"
           id="lawyer"
           tabindex="-1"
           role="dialog"
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
         >
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">
                   Add Lawyer
                 </h5>
                 <button
                   type="button"
-                  class="close"
+                  className="close"
                   data-dismiss="modal"
                   aria-label="Close"
                 >
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
+              <div className="modal-body">
                 <form onSubmit={handleSubmitLawyer}>
                   <div className="form-group">
                     <label htmlFor="">Judge</label>
@@ -375,7 +375,7 @@ const ViewCourt = (props) => {
                   <div className="form-group">
                     <label htmlFor="exampleInputPassword3">Judge role</label>
                     <select
-                      class="form-control"
+                      className="form-control"
                       name="judge_role"
                       onChange={handleInputs}
                     >
@@ -407,7 +407,7 @@ const ViewCourt = (props) => {
                       Judge Assignment or Administrative Rights
                     </label>
                     <select
-                      class="form-control"
+                      className="form-control"
                       name="judge_administrative_right"
                       onChange={handleInputs}
                     >
@@ -445,29 +445,29 @@ const ViewCourt = (props) => {
       <section>
         {/* <!-- Modal --> */}
         <div
-          class="modal fade"
+          className="modal fade"
           id="client"
           tabindex="-1"
           role="dialog"
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
         >
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">
                   Add Client
                 </h5>
                 <button
                   type="button"
-                  class="close"
+                  className="close"
                   data-dismiss="modal"
                   aria-label="Close"
                 >
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
+              <div className="modal-body">
                 <div className="form-group">
                   <label htmlFor="">Client</label>
                   <select
