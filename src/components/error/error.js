@@ -70,4 +70,27 @@ const Error = (props) => {
   }
 };
 
+
+//   {/* UNDER CONSTRUCTION ERROR PAGE  */}
+//   <div>
+//   <div className="wrapper">
+//     <div className="container-fluid p-0">
+//       <div className="row no-gutters">
+//         <div className="col-sm-12 text-center">
+//           <div className="iq-error">
+//             <h1>Oops!</h1>
+//             <h4 className="mb-0 mt-5">This page is under construction</h4>
+//             {/* <h4 className="mb-0">{props.advice}</h4> */}
+//             <p>Try again later</p>
+//             <Link className="btn btn-primary mt-3" to={`${props.link}`}>
+//               Go back {props.button}
+//             </Link>
+//             <img src={error} className="img-fluid iq-error-img" alt="" />
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   </div> 
+// </div>
+
 export default Error;
