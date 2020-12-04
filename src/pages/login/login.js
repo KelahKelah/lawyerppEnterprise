@@ -26,7 +26,7 @@ const Login = (props) => {
         userLogin
       )
       .then((response) => {
-        console.log(response);
+        console.log('login response',response);
         localStorage.setItem("userData", JSON.stringify(response.data.data));
         axios.defaults.headers['x-access-token'] = response.data.data.token;
         props.history.push("/home");
