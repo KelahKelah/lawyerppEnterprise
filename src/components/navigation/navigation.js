@@ -39,7 +39,7 @@ const Navigation = (props) => {
               Cost Process
             </Link>
             <Link className="dropdown-item" to="/assign/lawyer">
-              Assign Lawyer
+              Assign Judge
             </Link>
             <Link className="dropdown-item" to="/create/organization">
               Create Organization
@@ -63,7 +63,7 @@ const Navigation = (props) => {
               File a Process
             </Link>
             <Link className="dropdown-item" to="/process/view">
-              View File Processes
+              View Filed Processes
             </Link>
             <Link className="dropdown-item" to="/process/pay">
               Payment
