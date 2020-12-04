@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./form.css";
-import { withRouter } from "react-router-dom";
+import { withRouter} from "react-router-dom";
 import Success from "../success/success";
 
 const Form = (props) => {
@@ -177,7 +177,7 @@ const Form = (props) => {
                   <option>No</option>
                 </select>
               </div>
-              <div className="form-group">
+              {/* <div className="form-group">
                 <label htmlFor="exampleInputdatetime">
                   Judge court designation
                 </label>
@@ -187,7 +187,7 @@ const Form = (props) => {
                   name="judge_court_designation"
                   onChange={handleInputs}
                 />
-              </div>
+              </div> */}
 
               <div className="form-group">
                 <label htmlFor="">Court Staff</label>
