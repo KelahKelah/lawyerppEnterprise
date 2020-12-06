@@ -9,6 +9,7 @@ const ViewFileProcesses = (props) => {
   const [disabled, setDisabled] = useState("false");
   const viewFileProcessesUrl = "/fileprocess/filer_filed_process";
   const [assingedLawyers, setAssingedLawyers] = useState({});
+  const [singleCase, setSingle] = useState({ name: "" });
 
   useEffect(() => {
     axios
@@ -25,6 +26,18 @@ const ViewFileProcesses = (props) => {
         }
       });
   }, []);
+
+  const getSingleCase = (id) => {
+    axios
+      .get(
+        `https://lawyerppenterprise.herokuapp.com/api/fileprocess/filer_single_process?processId=${id}`
+      )
+      .then((res) => {
+        console.log("axios single", res);
+        setSingle(res.data.data.client_opposing_lawyer);
+      })
+      .catch((error) => console.log("error", error));
+  };
   const fetchAssignedLawyers = (processId) => {
     setDisabled("loading");
     axios
@@ -76,6 +89,9 @@ const ViewFileProcesses = (props) => {
                     className="c-pointer allFileProcesses-tr"
                     data-target={`#moreInfo${i}`}
                     data-toggle="modal"
+                    onClick={() => {
+                      getSingleCase(allFileProcesses._id);
+                    }}
                   >
                     {allFileProcesses.mode_of_commencement}
                   </td>
@@ -555,49 +571,103 @@ const ViewFileProcesses = (props) => {
                             </div>
                             <div className="col-4 border-left">
                               <b className="border-bottom border-dark">
+                                Lawyerpp Opposing Lawyer
+                              </b>
+                              <br />
+                              {singleCase?.name === "" ? (
+                                <>
+                                  <small>
+                                    <b>Name: </b>
+                                    {(caseDetail.opposing_lawyers[0]
+                                      .opposing_lawyer_id &&
+                                      caseDetail.opposing_lawyers[0]
+                                        .opposing_lawyer_id.first_name +
+                                        " " +
+                                        caseDetail.opposing_lawyers[0]
+                                          .opposing_lawyer_id.last_name) ||
+                                      "N/A"}
+                                  </small>
+                                  <br />
+                                  <small>
+                                    <b>Email address: </b>
+                                    {(caseDetail.opposing_lawyers[0]
+                                      .opposing_lawyer_id &&
+                                      caseDetail.opposing_lawyers[0]
+                                        .opposing_lawyer_id.email_address) ||
+                                      "N/A"}
+                                  </small>
+                                  <br />
+                                  <small>
+                                    <b>Phone Number: </b>
+                                    {(caseDetail.opposing_lawyers[0]
+                                      .opposing_lawyer_id &&
+                                      caseDetail.opposing_lawyers[0]
+                                        .opposing_lawyer_id.phone_number) ||
+                                      "N/A"}
+                                  </small>
+                                  <br />
+                                  <small>
+                                    <b>Enrolment Number: </b>
+                                    {(caseDetail.opposing_lawyers[0]
+                                      .opposing_lawyer_id &&
+                                      caseDetail.opposing_lawyers[0]
+                                        .opposing_lawyer_id
+                                        .enrollment_number) ||
+                                      "N/A"}
+                                  </small>
+                                </>
+                              ) : (
+                                <>N/A</>
+                              )}
+
+                              <br />
+                              <br />
+
+                              {/* OPPOSING LAWYER DETAILS */}
+                              <b className="border-bottom border-dark">
                                 Opposing Lawyer
                               </b>
                               <br />
-                              <small>
-                                <b>Name: </b>
-                                {(caseDetail.opposing_lawyers[0]
-                                  .opposing_lawyer_id &&
-                                  caseDetail.opposing_lawyers[0]
-                                    .opposing_lawyer_id.first_name +
-                                    " " +
-                                    caseDetail.opposing_lawyers[0]
-                                      .opposing_lawyer_id.last_name) ||
-                                  "N/A"}
-                              </small>
+                              {console.log(singleCase?.name)}
+                              {singleCase?.name === "" || singleCase?.name === undefined ? (
+                                <>N/A</>
+                              ) : (
+                                <>
+                                  <small>
+                                    <b>Name: </b>
+                                    {singleCase?.name ?? "N/A"}
+                                  </small>
+                                  <br />
+                                  <small>
+                                    <b>Email address: </b>
+                                    {singleCase?.email_address ?? "N/A"}
+                                  </small>
+                                  <br />
+                                  <small>
+                                    <b>Phone Number: </b>
+                                    {singleCase?.phone_number || "N/A"}
+                                  </small>
+                                  <br />
+                                  <small>
+                                    <b>WhatsApp Number: </b>
+                                    {singleCase?.whatsapp_number || "N/A"}
+                                  </small>
+                                  <br />
+                                  <small>
+                                    <b>Facebook ID: </b>
+                                    {singleCase?.facebook_id || "N/A"}
+                                  </small>
+                                  <br />
+                                  <small>
+                                    <b>Office Address: </b>
+                                    {singleCase?.office_address || "N/A"}
+                                  </small>
+                                </>
+                              )}
+
                               <br />
-                              <small>
-                                <b>Email address: </b>
-                                {(caseDetail.opposing_lawyers[0]
-                                  .opposing_lawyer_id &&
-                                  caseDetail.opposing_lawyers[0]
-                                    .opposing_lawyer_id.email_address) ||
-                                  "N/A"}
-                              </small>
                               <br />
-                              <small>
-                                <b>Phone Number: </b>
-                                {(caseDetail.opposing_lawyers[0]
-                                  .opposing_lawyer_id &&
-                                  caseDetail.opposing_lawyers[0]
-                                    .opposing_lawyer_id.phone_number) ||
-                                  "N/A"}
-                              </small>
-                              <br />
-                              <small>
-                                <b>Enrolment Number: </b>
-                                {(caseDetail.opposing_lawyers[0]
-                                  .opposing_lawyer_id &&
-                                  caseDetail.opposing_lawyers[0]
-                                    .opposing_lawyer_id.enrollment_number) ||
-                                  "N/A"}
-                              </small>
-                              <br />
-                              <br />
+
                               <b className="border-bottom border-dark">
                                 Opposing Party
                               </b>
