@@ -8,7 +8,7 @@ const FillFileProcess = (props) => {
   const [filer, setfiler] = useState("");
   const [counsel, setCounsel] = useState(false);
   const [party, setParty] = useState(false);
-  const [lawyer, setLawyer] = useState(false);
+  const [oppossingLawyer, setOppossingLawyer] = useState(false);
   const [data, setdata] = useState({
     mode_of_commencement: "",
     filing_as: "",
@@ -82,7 +82,7 @@ const FillFileProcess = (props) => {
     axios
       .get("https://lawyerppserver.herokuapp.com/api/lawfirm/lawfirms")
       .then((res) => {
-        // console.log(res.data.data);
+        console.log('fetch lawfirms data',res.data.data);
         setlawFirms(res.data.data);
       })
       .catch((error) => {
@@ -130,7 +130,7 @@ const FillFileProcess = (props) => {
     axios
       .post(url, files)
       .then((response) => {
-        // console.log(response);
+        console.log('post response',response);
         if (response.status === 200) {
           setSuccess(true);
           setloadState("notLoading");
@@ -512,7 +512,7 @@ const FillFileProcess = (props) => {
                         className="form-control"
                         name="opposing_lawyer"
                         onChange={handleChange}
-                        disabled={lawyer? true : false}
+                        disabled={oppossingLawyer? true : false}
                       >
                         <option></option>
                         {lawyers &&
@@ -526,22 +526,21 @@ const FillFileProcess = (props) => {
                     </div>
 
                     {/* SELECT LAWYER CHECKBOX START  */}
-                    <div>
+                     <div>
                       <input
                         type="checkbox"
-                        id="counsel"
-                        onClick={() => setLawyer(!lawyer)}
-
+                        id="oppossingLawyer"
+                        onClick={() => setOppossingLawyer(!oppossingLawyer)}
                       />
                       <label htmlFor="customCheck1">
                         <small>
                           If your lawyer is not listed here, check this box
                         </small>
                       </label>
-                    </div>
+                    </div> 
                     {/* SELECT LAWYER CHECKBOX ENDS  */}
 
-                    { !lawyer ? (
+                     { oppossingLawyer ? (
                       <div>
                         <div className="form-group">
                           <label htmlFor="exampleInputEmail1">Name</label>
@@ -626,7 +625,7 @@ const FillFileProcess = (props) => {
                       </div>
                     ) 
                     // OPPOSING PARTY OPTION ENDS 
-                    : null }
+                    : null } 
 
                     <div className="form-group">
                       <label htmlFor="exampleInputEmail1">Select a Court</label>
