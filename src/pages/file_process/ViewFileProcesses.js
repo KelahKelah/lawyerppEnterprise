@@ -122,7 +122,7 @@ const ViewFileProcesses = (props) => {
         <div
           className="modal fade"
           id="assignedLawyer"
-          tabindex="-1"
+          tabIndex="-1"
           role="dialog"
           aria-labelledby="Assigned lawyer"
           aria-hidden="true"
