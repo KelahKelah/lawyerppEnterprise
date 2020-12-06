@@ -7,8 +7,8 @@ import axios from 'axios';
 
 let accessToken  = localStorage.getItem("userData")
 if(accessToken){
-  accessToken = JSON.parse(accessToken).token;  
-  axios.defaults.headers["x-access-token"] = accessToken;
+  accessToken = JSON.parse(accessToken).authDetails.access_token;
+  axios.defaults.headers.common["x-access-token"] = accessToken;
 }
 
 
