@@ -574,7 +574,7 @@ const ViewFileProcesses = (props) => {
                                 Lawyerpp Opposing Lawyer
                               </b>
                               <br />
-                              {singleCase?.name === "" ? (
+                              {singleCase?.name  === "" || singleCase?.name === undefined ? (
                                 <>
                                   <small>
                                     <b>Name: </b>
