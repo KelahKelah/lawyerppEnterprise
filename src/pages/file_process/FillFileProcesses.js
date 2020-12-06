@@ -8,6 +8,7 @@ const FillFileProcess = (props) => {
   const [filer, setfiler] = useState("");
   const [counsel, setCounsel] = useState(false);
   const [party, setParty] = useState(false);
+  const [oppossingLawyer, setOppossingLawyer] = useState(false);
   const [data, setdata] = useState({
     mode_of_commencement: "",
     filing_as: "",
@@ -55,6 +56,7 @@ const FillFileProcess = (props) => {
       .get("https://lawyerppenterprise.herokuapp.com/api/court/lawyers")
       .then((res) => {
         setlawyers(res.data.data);
+        console.log('lawyer response', res)
       })
       .catch((error) => {
         console.error(error);
@@ -80,7 +82,7 @@ const FillFileProcess = (props) => {
     axios
       .get("https://lawyerppserver.herokuapp.com/api/lawfirm/lawfirms")
       .then((res) => {
-        console.log(res.data.data);
+        console.log('fetch lawfirms data',res.data.data);
         setlawFirms(res.data.data);
       })
       .catch((error) => {
@@ -111,7 +113,7 @@ const FillFileProcess = (props) => {
     });
   };
 
-  console.log("data", data);
+  // console.log("data", data);
   const handleFile = (e) => {
     setdata({ ...data, certificate: e.target.files[0] });
   };
@@ -122,13 +124,13 @@ const FillFileProcess = (props) => {
       files.append(key, data[key]);
     });
 
-    console.log(files);
+    // console.log(files);
     let url = "/fileprocess/create";
     setloadState("isLoading");
     axios
       .post(url, files)
       .then((response) => {
-        console.log(response);
+        console.log('post response',response);
         if (response.status === 200) {
           setSuccess(true);
           setloadState("notLoading");
@@ -161,7 +163,7 @@ const FillFileProcess = (props) => {
                 <div className="col-sm-6">
                   <section>
                   <div className="form-group">
-                    <label for="exampleInputEmail1">Mode of commencement</label>
+                    <label htmlFor="exampleInputEmail1">Mode of commencement</label>
                     <select
                       id="inputState"
                       className="form-control"
@@ -176,7 +178,7 @@ const FillFileProcess = (props) => {
                     </select>
                   </div>
                   <div className="form-group">
-                    <label for="exampleInputEmail1">
+                    <label htmlFor="exampleInputEmail1">
                       Who are you filing as?
                     </label>
                     <select
@@ -193,7 +195,7 @@ const FillFileProcess = (props) => {
                   </div>
                   {filer === "client" ? (
                     <div className="form-group">
-                      <label for="exampleInputEmail1">Client</label>
+                      <label htmlFor="exampleInputEmail1">Client</label>
                       <select
                         id="inputState"
                         className="form-control"
@@ -213,7 +215,7 @@ const FillFileProcess = (props) => {
                   ) : filer === "lawyer" ? (
                     <div className="form-row">
                       <div className="form-group col-md-6">
-                        <label for="exampleInputEmail1">Lawyer Names</label>
+                        <label htmlFor="exampleInputEmail1">Lawyer Names</label>
                         <select
                           id="inputState"
                           className="form-control"
@@ -231,7 +233,7 @@ const FillFileProcess = (props) => {
                         </select>
                       </div>
                       <div className="form-group col-md-6">
-                        <label for="exampleInputEmail1">Law firms</label>
+                        <label htmlFor="exampleInputEmail1">Law firms</label>
                         <select
                           id="inputState"
                           className="form-control"
@@ -250,9 +252,10 @@ const FillFileProcess = (props) => {
                       </div>
                     </div>
                   ) : null}
+
                   <div className="opposing-party">
                     <div className="form-group">
-                      <label for="exampleInputEmail1">Select a counsel</label>
+                      <label htmlFor="exampleInputEmail1">Select a counsel</label>
                       <select
                         id="inputState"
                         className="form-control"
@@ -270,6 +273,7 @@ const FillFileProcess = (props) => {
                           ))}
                       </select>
                     </div>
+
                     <div>
                       <input
                         type="checkbox"
@@ -277,16 +281,17 @@ const FillFileProcess = (props) => {
                         onClick={() => setCounsel(!counsel)}
                       />
 
-                      <label for="customCheck1">
+                      <label htmlFor="customCheck1">
                         <small>
                           If your counsel is not listed here, check this box
                         </small>
                       </label>
                     </div>
+
                     {counsel ? (
                       <div>
                         <div className="form-group">
-                          <label for="exampleInputEmail1">Name</label>
+                          <label htmlFor="exampleInputEmail1">Name</label>
                           <input
                             type="text"
                             className="form-control"
@@ -299,7 +304,7 @@ const FillFileProcess = (props) => {
                         </div>
                         <div className="form-row">
                           <div className="form-group col-md-6">
-                            <label for="exampleInputEmail1">Phone Number</label>
+                            <label htmlFor="exampleInputEmail1">Phone Number</label>
                             <input
                               type="number"
                               className="form-control"
@@ -311,7 +316,7 @@ const FillFileProcess = (props) => {
                             />
                           </div>
                           <div className="form-group col-md-6">
-                            <label for="exampleInputEmail1">
+                            <label htmlFor="exampleInputEmail1">
                               WhatsApp Number
                             </label>
                             <input
@@ -327,7 +332,7 @@ const FillFileProcess = (props) => {
                         </div>
                         <div className="form-row">
                           <div className="form-group col-md-6">
-                            <label for="exampleInputEmail1">
+                            <label htmlFor="exampleInputEmail1">
                               Email Address
                             </label>
                             <input
@@ -341,7 +346,7 @@ const FillFileProcess = (props) => {
                             />
                           </div>
                           <div className="form-group col-md-6">
-                            <label for="exampleInputEmail1">Facebook ID</label>
+                            <label htmlFor="exampleInputEmail1">Facebook ID</label>
                             <input
                               type="text"
                               className="form-control"
@@ -354,7 +359,7 @@ const FillFileProcess = (props) => {
                           </div>
                         </div>
                         <div className="form-group">
-                          <label for="exampleFormControlTextarea1">
+                          <label htmlFor="exampleFormControlTextarea1">
                             Office Address
                           </label>
                           <textarea
@@ -370,10 +375,12 @@ const FillFileProcess = (props) => {
                   </div>
                   </section>
                 </div>
+
+{/* SELECT AN OPPOSING PARTY STARTS  */}
                 <div className="col-sm-6">
                   <div className="opposing-party">
                     <div className="form-group">
-                      <label for="exampleInputEmail1">
+                      <label htmlFor="exampleInputEmail1">
                         Select an Opposing party
                       </label>
                       <select
@@ -393,23 +400,25 @@ const FillFileProcess = (props) => {
                           ))}
                       </select>
                     </div>
+
                     <div className="d-inline-block mt-2 pt-1">
                       <input
                         type="checkbox"
                         id="party"
                         onClick={() => setParty(!party)}
                       />
-                      <label for="customCheck1">
+                      <label htmlFor="customCheck1">
                         <small>
                           If your opposing party is not listed here, check this
                           box
                         </small>
                       </label>
                     </div>
-                    {party ? (
+
+                    { party ? (
                       <div>
                         <div className="form-group">
-                          <label for="exampleInputEmail1">Name</label>
+                          <label htmlFor="exampleInputEmail1">Name</label>
                           <input
                             type="text"
                             className="form-control"
@@ -422,7 +431,7 @@ const FillFileProcess = (props) => {
                         </div>
                         <div className="form-row">
                           <div className="form-group col-md-6">
-                            <label for="exampleInputEmail1">Phone Number</label>
+                            <label htmlFor="exampleInputEmail1">Phone Number</label>
                             <input
                               type="number"
                               className="form-control"
@@ -434,7 +443,7 @@ const FillFileProcess = (props) => {
                             />
                           </div>
                           <div className="form-group col-md-6">
-                            <label for="exampleInputEmail1">
+                            <label htmlFor="exampleInputEmail1">
                               WhatsApp Number
                             </label>
                             <input
@@ -450,7 +459,7 @@ const FillFileProcess = (props) => {
                         </div>
                         <div className="form-row">
                           <div className="form-group col-md-6">
-                            <label for="exampleInputEmail1">
+                            <label htmlFor="exampleInputEmail1">
                               Email Address
                             </label>
                             <input
@@ -464,7 +473,7 @@ const FillFileProcess = (props) => {
                             />
                           </div>
                           <div className="form-group col-md-6">
-                            <label for="exampleInputEmail1">Facebook ID</label>
+                            <label htmlFor="exampleInputEmail1">Facebook ID</label>
                             <input
                               type="text"
                               className="form-control"
@@ -477,7 +486,7 @@ const FillFileProcess = (props) => {
                           </div>
                         </div>
                         <div className="form-group">
-                          <label for="exampleFormControlTextarea1">
+                          <label htmlFor="exampleFormControlTextarea1">
                             Office Address
                           </label>
                           <textarea
@@ -489,9 +498,13 @@ const FillFileProcess = (props) => {
                           ></textarea>
                         </div>
                       </div>
-                    ) : null}
+                    ) 
+                    // OPPOSING PARTY OPTION ENDS 
+                    : null }
+
+{/* SELECT OPPOSING LAWYER CHECKBOX START  */}
                     <div className="form-group">
-                      <label for="exampleInputEmail1">
+                      <label htmlFor="exampleInputEmail1">
                         Select an Opposing lawyer
                       </label>
                       <select
@@ -499,6 +512,7 @@ const FillFileProcess = (props) => {
                         className="form-control"
                         name="opposing_lawyer"
                         onChange={handleChange}
+                        disabled={oppossingLawyer? true : false}
                       >
                         <option></option>
                         {lawyers &&
@@ -510,8 +524,111 @@ const FillFileProcess = (props) => {
                           ))}
                       </select>
                     </div>
+
+                    {/* SELECT LAWYER CHECKBOX START  */}
+                     <div>
+                      <input
+                        type="checkbox"
+                        id="oppossingLawyer"
+                        onClick={() => setOppossingLawyer(!oppossingLawyer)}
+                      />
+                      <label htmlFor="customCheck1">
+                        <small>
+                          If your lawyer is not listed here, check this box
+                        </small>
+                      </label>
+                    </div> 
+                    {/* SELECT LAWYER CHECKBOX ENDS  */}
+
+                     { oppossingLawyer ? (
+                      <div>
+                        <div className="form-group">
+                          <label htmlFor="exampleInputEmail1">Name</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="exampleInputEmail1"
+                            aria-describedby="emailHelp"
+                            placeholder="Enter name"
+                            name="opposing_name"
+                            onChange={handleChange}
+                          />
+                        </div>
+                        <div className="form-row">
+                          <div className="form-group col-md-6">
+                            <label htmlFor="exampleInputEmail1">Phone Number</label>
+                            <input
+                              type="number"
+                              className="form-control"
+                              id=""
+                              aria-describedby="name"
+                              placeholder="Enter Phone number"
+                              name="opposing_phone_number"
+                              onChange={handleChange}
+                            />
+                          </div>
+                          <div className="form-group col-md-6">
+                            <label htmlFor="exampleInputEmail1">
+                              WhatsApp Number
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="exampleInputEmail1"
+                              aria-describedby="emailHelp"
+                              placeholder="Enter WhatsApp number"
+                              name="opposing_whatsapp_number"
+                              onChange={handleChange}
+                            />
+                          </div>
+                        </div>
+                        <div className="form-row">
+                          <div className="form-group col-md-6">
+                            <label htmlFor="exampleInputEmail1">
+                              Email Address
+                            </label>
+                            <input
+                              type="email"
+                              className="form-control"
+                              id=""
+                              aria-describedby="name"
+                              placeholder="Enter email"
+                              name="opposing_email_address"
+                              onChange={handleChange}
+                            />
+                          </div>
+                          <div className="form-group col-md-6">
+                            <label htmlFor="exampleInputEmail1">Facebook ID</label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="exampleInputEmail1"
+                              aria-describedby="emailHelp"
+                              placeholder="Enter Facebook ID"
+                              name="opposing_facebook_id"
+                              onChange={handleChange}
+                            />
+                          </div>
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="exampleFormControlTextarea1">
+                            Office Address
+                          </label>
+                          <textarea
+                            className="form-control"
+                            id="exampleFormControlTextarea1"
+                            rows="3"
+                            name="opposing_office_address"
+                            onChange={handleChange}
+                          ></textarea>
+                        </div>
+                      </div>
+                    ) 
+                    // OPPOSING PARTY OPTION ENDS 
+                    : null } 
+
                     <div className="form-group">
-                      <label for="exampleInputEmail1">Select a Court</label>
+                      <label htmlFor="exampleInputEmail1">Select a Court</label>
                       <select
                         id="inputState"
                         className="form-control"
@@ -529,7 +646,7 @@ const FillFileProcess = (props) => {
                       </select>
                     </div>
                     <div className="form-group">
-                      <label for="exampleFormControlFile1">
+                      <label htmlFor="exampleFormControlFile1">
                         Upload process document
                       </label>
                       <input
@@ -556,6 +673,7 @@ const FillFileProcess = (props) => {
                     ) : null}
                   </div>
                 </div>
+
               </div>
             </form>
           </div>

@@ -7,10 +7,10 @@ import axios from 'axios';
 
 let accessToken  = localStorage.getItem("userData")
 if(accessToken){
-  accessToken = JSON.parse(accessToken).token;  
+    accessToken = JSON.parse(accessToken).authDetails.access_token;  
   axios.defaults.headers["x-access-token"] = accessToken;
 }
-
+console.log('value of access token', accessToken)
 
 axios.defaults.baseURL = 'https://lawyerppenterprise.herokuapp.com/api';
 

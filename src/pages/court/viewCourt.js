@@ -133,7 +133,7 @@ const ViewCourt = (props) => {
                     <button  className="btn btn-primary text-white c-pointer" data-target={`#moreInfo${i}`} data-toggle="modal" target="_blank">View Court</button>
                   </td>
                   <td>
-                    <button  className="btn btn-primary text-white c-pointer" type="button" data-toggle="modal" data-target="#lawyer" href="" onClick={()=>{setCourtId(court._id)}} target="_blank">Add Lawyer to court</button>
+                    <button  className="btn btn-primary text-white c-pointer" type="button" data-toggle="modal" data-target="#lawyer" href="" onClick={()=>{setCourtId(court._id)}} target="_blank">Add Judge to court</button>
                   </td>
                   {/* <td>
                     <button className="btn btn-primary text-white c-pointer" type="button" data-toggle="modal" data-target="#client"href="" target="_blank">Add Client</button>
