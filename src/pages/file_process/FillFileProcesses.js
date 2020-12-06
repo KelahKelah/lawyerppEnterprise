@@ -8,7 +8,7 @@ const FillFileProcess = (props) => {
   const [filer, setfiler] = useState("");
   const [counsel, setCounsel] = useState(false);
   const [party, setParty] = useState(false);
-  const [oppossingLawyer, setOppossingLawyer] = useState(false);
+  const [opposingLawyer, setOpposing] = useState(false)
   const [data, setdata] = useState({
     mode_of_commencement: "",
     filing_as: "",
@@ -400,8 +400,7 @@ const FillFileProcess = (props) => {
                           ))}
                       </select>
                     </div>
-
-                    <div className="d-inline-block mt-2 pt-1">
+                    <div className="d-inline-block">
                       <input
                         type="checkbox"
                         id="party"
@@ -498,11 +497,10 @@ const FillFileProcess = (props) => {
                           ></textarea>
                         </div>
                       </div>
-                    ) 
-                    // OPPOSING PARTY OPTION ENDS 
-                    : null }
+                    ) : null}
 
-{/* SELECT OPPOSING LAWYER CHECKBOX START  */}
+
+                    {/* OPPOSING LAWYER START */}
                     <div className="form-group">
                       <label htmlFor="exampleInputEmail1">
                         Select an Opposing lawyer
@@ -512,7 +510,7 @@ const FillFileProcess = (props) => {
                         className="form-control"
                         name="opposing_lawyer"
                         onChange={handleChange}
-                        disabled={oppossingLawyer? true : false}
+                        // disabled={opposingLawyer}
                       >
                         <option></option>
                         {lawyers &&
@@ -525,50 +523,51 @@ const FillFileProcess = (props) => {
                       </select>
                     </div>
 
-                    {/* SELECT LAWYER CHECKBOX START  */}
-                     <div>
+
+
+                    <div className="d-inline-block">
                       <input
                         type="checkbox"
-                        id="oppossingLawyer"
-                        onClick={() => setOppossingLawyer(!oppossingLawyer)}
+                        id="party"
+                        onClick={() => setOpposing(!opposingLawyer)}
                       />
-                      <label htmlFor="customCheck1">
+                      <label for="customCheck1">
                         <small>
-                          If your lawyer is not listed here, check this box
+                          If your opposing lawyer is not listed here, check this
+                          box
                         </small>
                       </label>
-                    </div> 
-                    {/* SELECT LAWYER CHECKBOX ENDS  */}
+                    </div>
 
-                     { oppossingLawyer ? (
+                    {opposingLawyer ? (
                       <div>
                         <div className="form-group">
-                          <label htmlFor="exampleInputEmail1">Name</label>
+                          <label for="exampleInputEmail1">Name</label>
                           <input
                             type="text"
                             className="form-control"
                             id="exampleInputEmail1"
                             aria-describedby="emailHelp"
                             placeholder="Enter name"
-                            name="opposing_name"
+                            name="ol_name"
                             onChange={handleChange}
                           />
                         </div>
                         <div className="form-row">
                           <div className="form-group col-md-6">
-                            <label htmlFor="exampleInputEmail1">Phone Number</label>
+                            <label for="exampleInputEmail1">Phone Number</label>
                             <input
                               type="number"
                               className="form-control"
                               id=""
                               aria-describedby="name"
                               placeholder="Enter Phone number"
-                              name="opposing_phone_number"
+                              name="ol_phone_number"
                               onChange={handleChange}
                             />
                           </div>
                           <div className="form-group col-md-6">
-                            <label htmlFor="exampleInputEmail1">
+                            <label for="exampleInputEmail1">
                               WhatsApp Number
                             </label>
                             <input
@@ -577,14 +576,14 @@ const FillFileProcess = (props) => {
                               id="exampleInputEmail1"
                               aria-describedby="emailHelp"
                               placeholder="Enter WhatsApp number"
-                              name="opposing_whatsapp_number"
+                              name="ol_whatsapp_number"
                               onChange={handleChange}
                             />
                           </div>
                         </div>
                         <div className="form-row">
                           <div className="form-group col-md-6">
-                            <label htmlFor="exampleInputEmail1">
+                            <label for="exampleInputEmail1">
                               Email Address
                             </label>
                             <input
@@ -593,39 +592,44 @@ const FillFileProcess = (props) => {
                               id=""
                               aria-describedby="name"
                               placeholder="Enter email"
-                              name="opposing_email_address"
+                              name="ol_email_address"
                               onChange={handleChange}
                             />
                           </div>
                           <div className="form-group col-md-6">
-                            <label htmlFor="exampleInputEmail1">Facebook ID</label>
+                            <label for="exampleInputEmail1">Facebook ID</label>
                             <input
                               type="text"
                               className="form-control"
                               id="exampleInputEmail1"
                               aria-describedby="emailHelp"
                               placeholder="Enter Facebook ID"
-                              name="opposing_facebook_id"
+                              name="ol_facebook_id"
                               onChange={handleChange}
                             />
                           </div>
                         </div>
                         <div className="form-group">
-                          <label htmlFor="exampleFormControlTextarea1">
+                          <label for="exampleFormControlTextarea1">
                             Office Address
                           </label>
                           <textarea
                             className="form-control"
                             id="exampleFormControlTextarea1"
                             rows="3"
-                            name="opposing_office_address"
+                            name="ol_office_address"
                             onChange={handleChange}
                           ></textarea>
                         </div>
                       </div>
-                    ) 
-                    // OPPOSING PARTY OPTION ENDS 
-                    : null } 
+                    ) : null}
+                    {/* OPPOSING LAWYER END */}
+
+
+
+
+
+
 
                     <div className="form-group">
                       <label htmlFor="exampleInputEmail1">Select a Court</label>
